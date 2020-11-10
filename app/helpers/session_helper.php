@@ -69,12 +69,12 @@ function isLoggedIn()
     }
 }
 /**
- * Genera Token para evitar los ateques CSRF
+ * Genera Token para evitar los ataques CSRF
  *
  * @return $token 
  */
 function generateCsrf() {
-    /**Verificamos si hay un token para la sesión actual. sinp lo hay lo generamos,
+    /**Verificamos si hay un token para la sesión actual. sino lo hay lo generamos,
      * caso contrario seteamos el valor actual del token en $token.
     */
     if(!isset($_SESSION["csrf_token"])) {
@@ -86,8 +86,8 @@ function generateCsrf() {
     echo "<input type='hidden' name='csrf_token' value='{$token}'>";
   }
   /**
-   * Valida el token que pasemos contra la sesion csrf_token
-   * para evitar los ateques con Cross-site request forgery o 
+   * Valida el token que pasemos contra la sesión csrf_token
+   * para evitar los ataques con Cross-site request forgery o 
    * falsificación de petición en sitios cruzados
    *
    * @param [string] $token token a validar

@@ -11,11 +11,11 @@ class Core
     /**Propiedad Singleton*/
     private static $instance;
     /**Propiedad para el Controlador Actual por 
-     * Defecto siempre es Pages
+     * Defecto siempre es 
      **/
     protected $currentController = 'UserController';
     /**Propiedad para el Método Actual por 
-     * Defecto siempre es index
+     * Defecto siempre es 
      **/
     protected $currentMethod = 'index';
     /**Propiedad para los Parámetros**/
