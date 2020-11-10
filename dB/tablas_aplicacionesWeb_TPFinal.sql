@@ -9,7 +9,7 @@ CREATE TABLE `usuarios` (
   `token` varchar(191),
   `created_at` timestamp,
   `updated_at` timestamp,
-  `deleted` boolean
+  `deleted` boolean DEFAULT false
 );
 
 CREATE TABLE `roles` (
@@ -18,7 +18,7 @@ CREATE TABLE `roles` (
   `descripcion` text,
   `created_at` timestamp,
   `updated_at` timestamp,
-  `deleted` boolean
+  `deleted` boolean DEFAULT false
 );
 
 CREATE TABLE `aulas` (
@@ -27,7 +27,7 @@ CREATE TABLE `aulas` (
   `descripcion` text,
   `created_at` timestamp,
   `updated_at` timestamp,
-  `deleted` boolean
+  `deleted` boolean DEFAULT false
 );
 
 CREATE TABLE `carreras` (
@@ -38,7 +38,7 @@ CREATE TABLE `carreras` (
   `horas` varchar(30),
   `created_at` timestamp,
   `updated_at` timestamp,
-  `deleted` boolean
+  `deleted` boolean DEFAULT false
 );
 
 CREATE TABLE `materias` (
@@ -49,7 +49,7 @@ CREATE TABLE `materias` (
   `descripcion` text,
   `created_at` timestamp,
   `updated_at` timestamp,
-  `deleted` boolean
+  `deleted` boolean DEFAULT false
 );
 
 CREATE TABLE `materias_usuarios` (
@@ -58,7 +58,7 @@ CREATE TABLE `materias_usuarios` (
   `materia_id` bigint,
   `created_at` timestamp,
   `updated_at` timestamp,
-  `deleted` boolean
+  `deleted` boolean DEFAULT false
 );
 
 CREATE TABLE `notas` (
@@ -68,7 +68,7 @@ CREATE TABLE `notas` (
   `estado` varchar(30),
   `created_at` timestamp,
   `updated_at` timestamp,
-  `deleted` boolean
+  `deleted` boolean DEFAULT false
 );
 
 CREATE TABLE `mesas_finales` (
@@ -77,7 +77,7 @@ CREATE TABLE `mesas_finales` (
   `fecha` date,
   `created_at` timestamp,
   `updated_at` timestamp,
-  `deleted` boolean
+  `deleted` boolean DEFAULT false
 );
 
 CREATE TABLE `inscripciones_mesas` (
@@ -86,7 +86,7 @@ CREATE TABLE `inscripciones_mesas` (
   `mesa_final_id` bigint,
   `created_at` timestamp,
   `updated_at` timestamp,
-  `deleted` boolean
+  `deleted` boolean DEFAULT false
 );
 
 ALTER TABLE `usuarios` ADD FOREIGN KEY (`id`) REFERENCES `roles` (`id`);
