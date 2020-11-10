@@ -14,5 +14,5 @@
   <title><?php echo isset($data['titulo']) ? $data['titulo'] : SITE_NAME ; ?></title>
 </head>
 <body>
-<?php require APP_ROOT ."/views/inc/navbar.php"; ?>
-<?php require APP_ROOT ."/views/inc/sidebar{$_SESSION['rol']}.php"; ?>
+<?php require APP_ROOT ."/views/partial/navbar.php"; ?>
+<?php require APP_ROOT ."/views/partial/sidebar{$_SESSION['rol']}.php"; ?>
