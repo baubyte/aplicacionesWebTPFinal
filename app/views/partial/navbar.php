@@ -4,23 +4,6 @@
       <img src="./img/logo.png" alt="logo" height="50px" width="190px">
     </a>
     <form class="form-inline">
-      <div class="btn-group" role="group">
-        <button id="btnGroupDrop1" type="button" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="./img/world.svg" alt="mundito" width="20px" height="20px">
-        </button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">English (en)</a>
-          <a class="dropdown-item" href="#">Español - Mexico (es_mex)</a>
-        </div>
-      </div>
-      <div class="btn-group" role="group">
-        <button id="notificacion" type="button" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="./img/notification.svg" width="20px" height="20px" alt="notificaciones">
-        </button>
-        <div class="dropdown-menu pull-left" aria-labelledby="notificacion">
-          <a class="dropdown-item" href="#">Sin notificaciones</a>
-        </div>
-      </div>
       <div class="btn-group dropleft" role="group">
         <button id="Mensajes" type="button" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <img src="./img/speech-bubble.svg" width="20px" height="20px">

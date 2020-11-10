@@ -71,6 +71,24 @@ CREATE TABLE `notas` (
   `deleted` boolean
 );
 
+CREATE TABLE `mesas_finales` (
+  `id` bigint PRIMARY KEY AUTO_INCREMENT,
+  `materia_id` bigint,
+  `fecha` date,
+  `created_at` timestamp,
+  `updated_at` timestamp,
+  `deleted` boolean
+);
+
+CREATE TABLE `inscripciones_mesas` (
+  `id` bigint PRIMARY KEY AUTO_INCREMENT,
+  `usuario_id` bigint,
+  `mesa_final_id` bigint,
+  `created_at` timestamp,
+  `updated_at` timestamp,
+  `deleted` boolean
+);
+
 ALTER TABLE `usuarios` ADD FOREIGN KEY (`id`) REFERENCES `roles` (`id`);
 
 ALTER TABLE `materias_usuarios` ADD FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
@@ -82,3 +100,9 @@ ALTER TABLE `materias` ADD FOREIGN KEY (`carrera_id`) REFERENCES `carreras` (`id
 ALTER TABLE `materias_usuarios` ADD FOREIGN KEY (`materia_id`) REFERENCES `materias` (`id`);
 
 ALTER TABLE `materias` ADD FOREIGN KEY (`aula_id`) REFERENCES `aulas` (`id`);
+
+ALTER TABLE `mesas_finales` ADD FOREIGN KEY (`materia_id`) REFERENCES `materias` (`id`);
+
+ALTER TABLE `inscripciones_mesas` ADD FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
+
+ALTER TABLE `inscripciones_mesas` ADD FOREIGN KEY (`mesa_final_id`) REFERENCES `mesas_finales` (`id`);
