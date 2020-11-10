@@ -8,6 +8,8 @@ class UserController extends Controller
 
     public function index()
     {
+        session_start();
+        $_SESSION['rol']="Administrador";
         $data = [
             'titulo' => 'Administrador'
         ];
