@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No se permite acceso directo');
-class User
+class Usuario
 {
     private $db;
     public function __construct()
@@ -8,12 +8,19 @@ class User
         $this->db = Database::getInstance();
     }
 
-    public function register($data)
+    public function store($data)
     {
-        $this->db->query('INSERT INTO users (name, email, password) VALUES (:name, :email, :password)');
-        $this->db->bind(':name', $data['name']);
+        $this->db->query('INSERT INTO 
+                            usuarios (rol_id, email, password, nombre, apellido, dni) 
+                        VALUES 
+                        (:rol_id, :email, :password, :nombre, :apellido, :dni)
+                        ');
+        $this->db->bind(':rol_id', $data['rol']);
         $this->db->bind(':email', $data['email']);
         $this->db->bind(':password', $data['password']);
+        $this->db->bind(':nombre', $data['nombre']);
+        $this->db->bind(':apellido', $data['apellido']);
+        $this->db->bind(':dni', $data['dni']);
         if ($this->db->execute()) {
             return true;
         } else {
@@ -21,22 +28,9 @@ class User
         }
     }
 
-    public function addUser($data)
+    public function delete($id)
     {
-        $this->db->query('INSERT INTO users (name, email, password) VALUES (:name, :email, :password)');
-        $this->db->bind(':name', $data['name']);
-        $this->db->bind(':email', $data['email']);
-        $this->db->bind(':password', $data['password']);
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function deleteUser($id)
-    {
-        $this->db->query('DELETE FROM users WHERE id = :id');
+        $this->db->query('UPDATE usuarios SET deleted = 1 WHERE id = :id');
         $this->db->bind(':id', $id);
         if ($this->db->execute()) {
             return true;

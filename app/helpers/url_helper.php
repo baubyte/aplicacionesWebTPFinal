@@ -12,7 +12,6 @@ defined('BASEPATH') or exit('No se permite acceso directo');
     }
     function back()
     {
-        $previous = "javascript:history.go(-1)";
         if(isset($_SERVER['HTTP_REFERER'])) {
             $previous = $_SERVER['HTTP_REFERER'];
         }

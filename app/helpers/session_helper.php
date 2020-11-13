@@ -78,7 +78,7 @@ function generateCsrf() {
      * caso contrario seteamos el valor actual del token en $token.
     */
     if(!isset($_SESSION["csrf_token"])) {
-        $token = random_bytes(64);
+        $token = base64_encode(random_bytes(64));
         $_SESSION["csrf_token"] = $token;
     } else {
         $token = $_SESSION["csrf_token"];
@@ -97,8 +97,8 @@ function generateCsrf() {
   {
       $token = isset($_POST['csrf_token']) ? $_POST['csrf_token'] : '' ;
       $verify = false;
-    /**Si el parametro $token es distinto a la 
-     * sesion csrf_token blankeamos las sesion 
+    /**Si el parámetro $token es distinto a la 
+     * sesión csrf_token blanqueamos las sesión 
      **/
     if (isset($_SESSION["csrf_token"])) {
         if ($token != $_SESSION["csrf_token"]) {

@@ -13,7 +13,7 @@ class Core
     /**Propiedad para el Controlador Actual por 
      * Defecto siempre es 
     **/
-    protected $currentController = 'UserController';
+    protected $currentController = 'UsuarioController';
     /**Propiedad para el Método Actual por 
      * Defecto siempre es 
      **/
