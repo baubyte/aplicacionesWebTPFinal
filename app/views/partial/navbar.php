@@ -1,5 +1,5 @@
-<!-------------------------------------NAV--------------------------------------------->
-  <nav class="fixed-top navbar navbar-dark" id="navBar">
+<!-------------------------------------NAV--------------------------------------------->  
+<nav class="fixed-top navbar navbar-dark" id="navBar">
     <a class="navbar-brand nav">
       <img src="./img/logo.png" alt="logo" height="50px" width="190px">
     </a>
@@ -17,15 +17,15 @@
           <img src="./img/user.svg" width="30px" height="30px">
         </button>
         <div class="dropdown-menu" aria-labelledby="User">
-          <a class="dropdown-item" href="#"><img src="./img/user.svg" width="20px" height="20px"> Usuario</a>
+          <a class="dropdown-item" href="#"><img src="<?php echo URL_ROOT; ?>/img/user.svg" width="20px" height="20px"> Usuario</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#"><img src="./img/speedometer.svg" width="20px" height="20px"> Tablero</a>
-          <a class="dropdown-item" href="#"><img src="./img/Perfil.svg" width="20px" height="20px"> Perfil</a>
-          <a class="dropdown-item" href="#"> <img src="./img/calendar.svg" width="20px" height="20px"> Calificaciones</a>
-          <a class="dropdown-item" href="#"> <img src="./img/letter.svg" width="20px" height="20px"> Mensajes</a>
-          <a class="dropdown-item" href="#"> <img src="./img/Herramienta.svg" width="20px" height="20px"> Preferencias</a>
+          <a class="dropdown-item" href="#"><img src="<?php echo URL_ROOT; ?>/img/speedometer.svg" width="20px" height="20px"> Tablero</a>
+          <a class="dropdown-item" href="#"><img src="<?php echo URL_ROOT; ?>/img/Perfil.svg" width="20px" height="20px"> Perfil</a>
+          <a class="dropdown-item" href="#"> <img src="<?php echo URL_ROOT; ?>/img/calendar.svg" width="20px" height="20px"> Calificaciones</a>
+          <a class="dropdown-item" href="#"> <img src="<?php echo URL_ROOT; ?>/img/letter.svg" width="20px" height="20px"> Mensajes</a>
+          <a class="dropdown-item" href="#"> <img src="<?php echo URL_ROOT; ?>/img/Herramienta.svg" width="20px" height="20px"> Preferencias</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="inicioSesion.php"> <img src="./img/SignOut.svg" width="20px" height="20px"> Salir</a>
+          <a class="dropdown-item" href="inicioSesion.php"> <img src="<?php echo URL_ROOT; ?>/img/SignOut.svg" width="20px" height="20px"> Salir</a>
         </div>
       </div>
     </form>

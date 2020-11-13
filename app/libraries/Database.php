@@ -9,8 +9,8 @@ defined('BASEPATH') or exit('No se permite acceso directo');
 class Database
 {
 
-    /**Propiedad Singleton*/
-    private static $instance;
+    /**Trait Singleton*/
+    use Singleton;
     /**Propiedad Servidor de Base de Datos*/
     private $host = DB_HOST;
     /**Propiedad Usuario de Base de Datos*/
@@ -54,19 +54,6 @@ class Database
             $this->error = $e->getMessage();
             echo $this->error;
         }
-    }
-
-    /**getInstance
-     * este método singleton devolverá una instancia de la clase.
-     *@param no recibe parámetros
-     *@return instancia de la clase
-     */
-    public static function getInstance()
-    {
-        if (!self::$instance instanceof self){
-            self::$instance = new self;
-        }
-        return self::$instance;
     }
 
     /**Consultas Preparadas

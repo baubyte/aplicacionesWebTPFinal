@@ -8,11 +8,11 @@ defined('BASEPATH') or exit('No se permite acceso directo');
 **/
 class Core
 {
-    /**Propiedad Singleton*/
-    private static $instance;
+    /**Trait Singleton*/
+    use Singleton;
     /**Propiedad para el Controlador Actual por 
      * Defecto siempre es 
-     **/
+    **/
     protected $currentController = 'UserController';
     /**Propiedad para el Método Actual por 
      * Defecto siempre es 
@@ -29,6 +29,7 @@ class Core
          * verificamos si existe el archivo.
          * Ponemos en Mayúscula primer letra de la Palabra
          **/
+        
         if (file_exists('../app/controllers/' . ucwords($url[0]) . 'Controller.php')) {
             /**Si existe seteamos el controlador y blanqueamos 
              * la primer posición del array $url.
@@ -69,19 +70,7 @@ class Core
          */
         call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
     }
-    
-    /**getInstance
-     * este método singleton devolverá una instancia de la clase.
-     *@param no recibe parámetros
-     *@return instancia de la clase
-     */
-    public static function getInstance()
-    {
-        if (!self::$instance instanceof self){
-            self::$instance = new self;
-        }
-        return self::$instance;
-    }
+
     /**
      * Obtiene la url, la limpia y convierte en array. 
      *

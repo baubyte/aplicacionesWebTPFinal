@@ -40,7 +40,7 @@ class Controller
       require_once('../app/views/partial/footer.php');
     } else {
       /**La Vista no Existe. */
-      die('La Vista No Existe.');
+      require_once('../app/views/error/index.php');
     }
   }
 }

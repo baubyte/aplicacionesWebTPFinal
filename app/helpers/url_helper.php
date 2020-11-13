@@ -10,3 +10,11 @@ defined('BASEPATH') or exit('No se permite acceso directo');
     function redirect( $page ){
         header('Location: ' .URL_ROOT . '/' . $page);
     }
+    function back()
+    {
+        $previous = "javascript:history.go(-1)";
+        if(isset($_SERVER['HTTP_REFERER'])) {
+            $previous = $_SERVER['HTTP_REFERER'];
+        }
+        header("Location:{$previous}");
+    }
