@@ -1,12 +1,12 @@
 <!-------------------------------------NAV--------------------------------------------->  
 <nav class="fixed-top navbar navbar-dark" id="navBar">
     <a class="navbar-brand nav">
-      <img src="./img/logo.png" alt="logo" height="50px" width="190px">
+      <img src="<?php echo URL_ROOT; ?>/img/logo.png" alt="logo" height="50px" width="190px">
     </a>
     <form class="form-inline">
       <div class="btn-group dropleft" role="group">
         <button id="Mensajes" type="button" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="./img/speech-bubble.svg" width="20px" height="20px">
+          <img src="<?php echo URL_ROOT; ?>/img/speech-bubble.svg" width="20px" height="20px">
         </button>
         <div class="dropdown-menu pull-left" aria-labelledby="Mensajes">
           <a class="dropdown-item" href="#">Casilla de mensajes vacia</a>
@@ -14,7 +14,7 @@
       </div>
       <div class="btn-group dropleft">
         <button id="User" type="button" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="./img/user.svg" width="30px" height="30px">
+          <img src="<?php echo URL_ROOT; ?>/img/user.svg" width="30px" height="30px">
         </button>
         <div class="dropdown-menu" aria-labelledby="User">
           <a class="dropdown-item" href="#"><img src="<?php echo URL_ROOT; ?>/img/user.svg" width="20px" height="20px"> Usuario</a>

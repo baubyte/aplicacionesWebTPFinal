@@ -14,5 +14,9 @@ class UserController extends Controller
         ];
         return $this->view('user/index', $data);
     }
+    public function create()
+    {
+        return $this->view('user/create');
+    }
 
 }
