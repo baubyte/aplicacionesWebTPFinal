@@ -24,7 +24,8 @@ class UsuarioController extends Controller
     public function index()
     {
         $data = [
-            'titulo' => 'Administrador'
+            'titulo' => 'Administrador',
+            'dataTables' => true
         ];
         return $this->view('usuario/index', $data);
     }
@@ -73,17 +74,29 @@ class UsuarioController extends Controller
                 flash('usuario_index_mensaje', 'El Usuario se dio de Alta Correctamente.');
                 redirect('usuario');
             } else {
-                flash('usuario_create_mensaje', 'Ocurrió un Error al i¡Intentar dar de Alta.', 'danger');
+                flash('usuario_create_mensaje', 'Ocurrió un Error al Intentar dar de Alta el Usuario.', 'danger');
 
                 $this->view('usuario/create', $data);
             }
         } else {
-            flash('usuario_create_mensaje', 'Verifica los Datos.', 'warning');
+            flash('usuario_create_mensaje', 'Surgieron Errores Por Favor Verifica, los Datos Ingresados.', 'warning');
             $this->view('usuario/create', $data);
         }
     }
-    /**
-     * Valida todos los Datos de los Usuarios y los
+    public function getUsuariosDataTables()
+    {
+        /**Recibimos lo Valores de DataTable */
+        $columnIndex = $_GET['order'][0]['column'];// Índice de columna
+        $data = [
+            'draw' => $_GET['draw'],
+            'row' => $_GET['start'],
+            'rowPerPage' => $_GET['length'],// Registros por Pagina
+            'columnName' => $_GET['columns'][$columnIndex]['data'],// Nombre de la Columna
+            'columnSortOrder' => $_GET['order'][0]['dir'],// Orden ASC o DESC
+            'searchValue' => filter_input(INPUT_GET, ['search']['value'], FILTER_SANITIZE_STRING)// Valor Buscado
+        ];
+    }
+    /**Valida todos los Datos de los Usuarios y los
      * Sanitiza, comprueba que no existan DNI duplicados y 
      * también los emails.
      *
