@@ -4,12 +4,17 @@ class UsuarioController extends Controller
 {
     public function __construct()
     {
+        /**Peticiones por POST necesario el csrf_token */
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (!verifyCsrf()) {
-                
+
                 return $this->view('error/index', ['error' => 'Token Invalido. No se Permite la Acción.']);
-            } 
+            }
         }
+        /**Instancia del Modelo Usuario*/
+        $this->usuarioModel = $this->model('Usuario');
+        /**Instancia del Modelo Rol*/
+        $this->rolModel = $this->model('Rol');
     }
     /**
      * Método Principal de la Entidad
@@ -30,8 +35,11 @@ class UsuarioController extends Controller
      */
     public function create()
     {
+        /**Obtenemos Todos los Roles */
+        $roles = $this->rolModel->getRoles();
         $data = [
-            'titulo' => 'Alta Usuarios'
+            'titulo' => 'Alta Usuarios',
+            'roles' => $roles
         ];
         return $this->view('usuario/create', $data);
     }
@@ -42,5 +50,131 @@ class UsuarioController extends Controller
      */
     public function store()
     {
+        /**Obtenemos Todos los Roles */
+        $roles = $this->rolModel->getRoles();
+        $data = [
+            'titulo' => 'Alta Usuarios',
+            'roles' => $roles
+        ];
+        /**Agregamos los Datos de la Validación */
+        $data += $this->validate();
+        /**Si no hubo errores hacemos el insert
+         * caso contrario Retornamos la Vista con los errores.
+         */
+        if (!$data['error']) {
+            //Hash Contraseña
+            $data['clave'] = password_hash($data['clave'], PASSWORD_DEFAULT);
+            /**Comprobamos que no hubo errores en el Insert y hacemos un redirect a 
+             * usuarios/index con un mensaje
+             * si hubo errores devolvemos la vista con un mensaje de error y
+             * con todos los datos ingresados.
+             */
+            if ($this->usuarioModel->store($data)) {
+                flash('usuario_index_mensaje', 'El Usuario se dio de Alta Correctamente.');
+                redirect('usuario');
+            } else {
+                flash('usuario_create_mensaje', 'Ocurrió un Error al i¡Intentar dar de Alta.', 'danger');
+
+                $this->view('usuario/create', $data);
+            }
+        } else {
+            flash('usuario_create_mensaje', 'Verifica los Datos.', 'warning');
+            $this->view('usuario/create', $data);
+        }
+    }
+    /**
+     * Valida todos los Datos de los Usuarios y los
+     * Sanitiza, comprueba que no existan DNI duplicados y 
+     * también los emails.
+     *
+     * @return [array] $data Un array con todos los datos.
+     */
+    public function validate()
+    {
+        /**Recepción de Campos */
+        $data = [
+            'nombre' => ucwords(strtolower(trim(filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING)))),
+            'apellido' => ucwords(strtolower(trim(filter_input(INPUT_POST, 'apellido', FILTER_SANITIZE_STRING)))),
+            'dni' => filter_input(INPUT_POST, 'dni', FILTER_SANITIZE_NUMBER_INT),
+            'rol' => filter_input(INPUT_POST, 'rol', FILTER_SANITIZE_NUMBER_INT),
+            'email' => strtolower(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL)),
+            'remail' => strtolower(filter_input(INPUT_POST, 'remail', FILTER_SANITIZE_EMAIL)),
+            'clave' => filter_input(INPUT_POST, 'clave', FILTER_SANITIZE_STRING),
+            'rclave' => filter_input(INPUT_POST, 'rclave', FILTER_SANITIZE_STRING),
+            'nombre_err' => '',
+            'apellido_err' => '',
+            'dni_err' => '',
+            'rol_err' => '',
+            'email_err' => '',
+            'remail_err' => '',
+            'clave_err' => '',
+            'rclave_err' => '',
+            'error' => false
+        ];
+        /**Validaciones de Todos los Campos con las Distintas Reglas*/
+        //Nombre
+        if (empty($data['nombre'])) {
+            $data['nombre_err'] = 'El Nombre es un Campo Obligatorio.';
+            $data['error'] = true;
+        } else if (strlen($data['nombre']) < 3) {
+            $data['nombre_err'] = 'El Nombre debe Contener al Menos 3 Caracteres.';
+            $data['error'] = true;
+        }
+        //Apellido
+        if (empty($data['apellido'])) {
+            $data['apellido_err'] = 'El Apellido es un Campo Obligatorio.';
+            $data['error'] = true;
+        } else if (strlen($data['apellido']) < 3) {
+            $data['apellido_err'] = 'El Apellido debe Contener al Menos 3 Caracteres.';
+            $data['error'] = true;
+        }
+        //DNI
+        if (empty($data['dni'])) {
+            $data['dni_err'] = 'El Número de Documento es un Campo Obligatorio.';
+            $data['error'] = true;
+        } else if (strlen($data['dni']) < 7 && filter_var($data['dni'], FILTER_VALIDATE_INT)) {
+            $data['dni_err'] = 'El Número de Documento debe Contener al Menos 7 Números.';
+            $data['error'] = true;
+        } else {
+            if ($this->usuarioModel->existsUsuarioByDocumento($data['dni'])) {
+                $data['dni_err'] = 'El Número de Documento ya se Encuentra Dado de Alta.';
+                $data['error'] = true;
+            }
+        }
+        //Email
+        if (empty($data['email']) && filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $data['email_err'] = 'El Email es un Campo Obligatorio y debe Ser Válido.';
+            $data['error'] = true;
+        } else {
+            if ($this->usuarioModel->existsUsuarioByEmail($data['email'])) {
+                $data['email_err'] = 'El Email ya se Encuentra Dado de Alta.';
+                $data['error'] = true;
+            }
+        }
+        //REmail
+        if (empty($data['remail']) && filter_var($data['remail'], FILTER_VALIDATE_EMAIL)) {
+            $data['remail_err'] = 'Confirmar Email es un Campo Obligatorio y debe Ser Válido.';
+            $data['error'] = true;
+        } else if ($data['email'] != $data['remail']) {
+            $data['remail_err'] = 'Los Emails no Coinciden.';
+            $data['error'] = true;
+        }
+        //Contraseña
+        if (empty($data['clave'])) {
+            $data['clave_err'] = 'La Contraseña es un Campo Obligatorio.';
+            $data['error'] = true;
+        } else if (strlen($data['clave']) < 6) {
+            $data['clave_err'] = 'La Contraseña debe Contener al Menos 6 Caracteres.';
+            $data['error'] = true;
+        }
+        //RContraseña
+        if (empty($data['rclave'])) {
+            $data['rclave_err'] = 'Confirmar Contraseña es un Campo Obligatorio.';
+            $data['error'] = true;
+        } else if ($data['clave'] != $data['rclave']) {
+            $data['rclave_err'] = 'Las Contraseñas no Coinciden.';
+            $data['error'] = true;
+        }
+        return $data;
     }
 }

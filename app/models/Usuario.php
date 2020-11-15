@@ -2,9 +2,11 @@
 defined('BASEPATH') or exit('No se permite acceso directo');
 class Usuario
 {
+    /**Atributo de Conexión */
     private $db;
     public function __construct()
     {
+        /**Conexión a la Base de Datos */
         $this->db = Database::getInstance();
     }
 
@@ -17,7 +19,7 @@ class Usuario
                         ');
         $this->db->bind(':rol_id', $data['rol']);
         $this->db->bind(':email', $data['email']);
-        $this->db->bind(':password', $data['password']);
+        $this->db->bind(':password', $data['clave']);
         $this->db->bind(':nombre', $data['nombre']);
         $this->db->bind(':apellido', $data['apellido']);
         $this->db->bind(':dni', $data['dni']);
@@ -66,9 +68,9 @@ class Usuario
         }
     }
 
-    public function getUserByEmail($email)
+    public function existsUsuarioByEmail($email)
     {
-        $this->db->query('SELECT * FROM users WHERE email = :email');
+        $this->db->query('SELECT * FROM usuarios WHERE email = :email');
         $this->db->bind(':email', $email);
         $this->db->single();
         if ($this->db->rowCount() > 0) {
@@ -77,10 +79,21 @@ class Usuario
             return false;
         }
     }
-
-    public function getUserById($id)
+    public function existsUsuarioByDocumento($dni)
     {
-        $this->db->query('SELECT * FROM users WHERE id = :id');
+        $this->db->query('SELECT * FROM usuarios WHERE dni = :dni');
+        $this->db->bind(':dni', $dni);
+        $this->db->single();
+        if ($this->db->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getUsuarioById($id)
+    {
+        $this->db->query('SELECT * FROM usuarios WHERE id = :id');
         $this->db->bind(':id', $id);
         return $this->db->single();
     }
@@ -96,10 +109,14 @@ class Usuario
             return false;
         }
     }
-
-    public function getUsers()
+    
+    /**Se Obtiene todos los Usuarios Disponibles
+     *
+     * @return [objet] Filas como Objeto
+     */
+    public function getUsuarios()
     {
-        $this->db->query('SELECT * FROM users');
+        $this->db->query('SELECT * FROM usuarios');
         return $this->db->resultSet();
     }
 }

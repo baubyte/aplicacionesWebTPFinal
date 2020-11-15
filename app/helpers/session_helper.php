@@ -9,7 +9,7 @@ session_start();
  * @param string $message mensaje a mostrar
  * @param string $class clase del alert usando bootstrap por 
  **/
-function flash($name = null, $message = null, $class = 'alert alert-success alert-dismissible fade show')
+function flash($name = null, $message = null, $class = 'success')
 {
     /** Entramos Solo si el Nombre No esta vacío es decir que
      * se le esta pasando parámetros.
@@ -46,10 +46,11 @@ function flash($name = null, $message = null, $class = 'alert alert-success aler
             /**Mostramos el mensaje con la clase por defecto o con 
              * la que se le pase por parámetros.
              **/
-            echo '<div class="' . $class . '" id="msg-flash" role="alert">' . $_SESSION[$name] . '
-                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                         <span aria-hidden="true">&times;</span></button>
-                     </div>';
+            echo '<div class="alert alert-' . $class . ' alert-dismissible fade show" id="msg-flash" role="alert">'
+                . $_SESSION[$name] . '
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            </div>';
             /**Limpiamos todas la sesiones usadas */
             unset($_SESSION[$name]);
             unset($_SESSION[$name . '_class']);
@@ -73,30 +74,31 @@ function isLoggedIn()
  *
  * @return $token 
  */
-function generateCsrf() {
+function generateCsrf()
+{
     /**Verificamos si hay un token para la sesión actual. sino lo hay lo generamos,
      * caso contrario seteamos el valor actual del token en $token.
-    */
-    if(!isset($_SESSION["csrf_token"])) {
-        $token = base64_encode(random_bytes(64));
+     */
+    if (!isset($_SESSION["csrf_token"])) {
+        $token = random_bytes(64);
         $_SESSION["csrf_token"] = $token;
     } else {
         $token = $_SESSION["csrf_token"];
     }
-    echo "<input type='hidden' name='csrf_token' value='{$token}'>";
-  }
-  /**
-   * Valida el token que pasemos contra la sesión csrf_token
-   * para evitar los ataques con Cross-site request forgery o 
-   * falsificación de petición en sitios cruzados
-   *
-   * @param [string] $token token a validar
-   * @return boolean 
-   */
-  function verifyCsrf()
-  {
-      $token = isset($_POST['csrf_token']) ? $_POST['csrf_token'] : '' ;
-      $verify = false;
+    echo "<input type='hidden' name='csrf_token' value='" . base64_encode($token) . "'>";
+}
+/**
+ * Valida el token que pasemos contra la sesión csrf_token
+ * para evitar los ataques con Cross-site request forgery o 
+ * falsificación de petición en sitios cruzados
+ *
+ * @param [string] $token token a validar
+ * @return boolean 
+ */
+function verifyCsrf()
+{
+    $token = isset($_POST['csrf_token']) ? base64_decode($_POST['csrf_token']) : '';
+    $verify = false;
     /**Si el parámetro $token es distinto a la 
      * sesión csrf_token blanqueamos las sesión 
      **/
@@ -104,9 +106,9 @@ function generateCsrf() {
         if ($token != $_SESSION["csrf_token"]) {
             unset($_SESSION["csrf_token"]);
             $verify = false;
-          }else {
+        } else {
             $verify = true;
-          }
+        }
     }
     return $verify;
-  }
+}
