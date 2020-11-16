@@ -8,13 +8,13 @@
         <h4>En ésta sección usted podrá Ver Todos Los Usuarios.</h4>
       </div>
     </div>
-    <table id="tablaUsuarios" class="table table-bordered table-sm table-hover table-striped dt-responsive nowrap" style="width:100%">
+    <table id="tablaUsuarios" class="table table-bordered table-sm table-hover table-striped nowrap" style="width:100%">
       <thead class="thead-dark">
         <tr>
           <th scope="col">#</th>
           <th scope="col">Apellido</th>
           <th scope="col">Nombre</th>
-          <th scope="col">Número de Documento</th>
+          <th scope="col">D.N.I</th>
           <th scope="col">Email</th>
           <th scope="col">Rol</th>
           <th scope="col">Acciones</th>
@@ -29,7 +29,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="exampleModalLongTitle">Eliminar Usuario</h4>
+          <h4 class="modal-title" id="modalEliminarLongTitle">Eliminar Usuario</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

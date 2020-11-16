@@ -10,7 +10,7 @@ class Usuario
         $this->db = Database::getInstance();
     }
     /**Realiza un INSERT de Usuario con todos los datos que 
-     * le pasemos;
+     * del usuario al dar de Alta.
      *
      * @param [array] $data Datos del Usuario a dar de alta
      * @return [boolean] TRUE si se hizo el INSERT sino FALSE
@@ -34,7 +34,38 @@ class Usuario
             return false;
         }
     }
-
+    /**Realiza un UPDATE de Usuario con todos los datos que 
+     * que se modificaron del Usuario.
+     *
+     * @param [array] $data Datos del Usuario a modificar.
+     * @return [boolean] TRUE si se hizo el UPDATE sino FALSE
+     */
+    public function update($data)
+    {
+        $this->db->query('UPDATE usuarios 
+                            SET rol_id = :rol_id, email = :email, nombre = :nombre, 
+                                apellido = :apellido, dni = :dni 
+                            WHERE id = :id
+                        ');
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':rol_id', $data['rol']);
+        $this->db->bind(':email', $data['email']);
+        $this->db->bind(':nombre', $data['nombre']);
+        $this->db->bind(':apellido', $data['apellido']);
+        $this->db->bind(':dni', $data['dni']);
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    /**
+     * Metodo por el cual se elimina el usuario,
+     * la eliminación se realiza de manera logica, cambiando
+     *
+     * @param [int] $id ID del usuario a eliminar.
+     * @return boolean TRUE si no existen errores caso contrario FALSE.
+     */
     public function destroy($id)
     {
         $this->db->query('UPDATE usuarios SET deleted = TRUE WHERE id = :id');
@@ -85,7 +116,7 @@ class Usuario
         $filter = (!empty($id)) ? 'AND id <> :id' : '';
         $this->db->query("SELECT * FROM usuarios WHERE email = :email $filter");
         $this->db->bind(':email', $email);
-        if (!empty($id)) {
+        if (!empty($filter)) {
             $this->db->bind(':id', $id);
         }
         $this->db->single();
@@ -108,7 +139,7 @@ class Usuario
         $filter = (!empty($id)) ? 'AND id <> :id' : '';
         $this->db->query("SELECT * FROM usuarios WHERE dni = :dni $filter");
         $this->db->bind(':dni', $dni);
-        if (!empty($id)) {
+        if (!empty($filter)) {
             $this->db->bind(':id', $id);
         }
         $this->db->single();
@@ -158,7 +189,7 @@ class Usuario
      */
     public function getUsuariosDataTables($data)
     {
-        $searchQuery="";
+        $searchQuery = "";
         /**Comprobamos si es -1 es decir mostramos todos */
         $limit = ($data['rowPerPage'] == -1) ? "" : " LIMIT :row , :rowPerPage";
         /**Comprobamos si existe un filtro en la búsqueda */
@@ -176,7 +207,7 @@ class Usuario
             $this->db->bind(':rowPerPage', $data['rowPerPage'], PDO::PARAM_INT);
         }
         if (!empty($searchQuery)) {
-            $this->db->bind(':search', '%'.$data['searchValue'].'%');
+            $this->db->bind(':search', '%' . $data['searchValue'] . '%');
         }
         return $this->db->resultSet();
     }
@@ -188,7 +219,7 @@ class Usuario
      */
     public function countUsuarios($filter = null)
     {
-        $searchQuery="";
+        $searchQuery = "";
         /**Comprobamos si existe un filtro en la búsqueda */
         if (!empty($filter)) {
             /**Consulta per Buscar los Valores */
@@ -198,7 +229,7 @@ class Usuario
                             FROM usuarios u LEFT JOIN roles r ON u.rol_id = r.id
                             WHERE u.deleted IS FALSE $searchQuery");
         if (!empty($searchQuery)) {
-            $this->db->bind(':search', '%'.$filter.'%');
+            $this->db->bind(':search', '%' . $filter . '%');
         }
         $this->db->resultSet();
         return $this->db->rowCount();

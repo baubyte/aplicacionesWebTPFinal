@@ -5,12 +5,9 @@ class UsuarioController extends Controller
     public function __construct()
     {
         /**Peticiones por POST necesario el csrf_token */
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if (!verifyCsrf()) {
-
-                return $this->view('error/index', ['error' => 'Token Invalido. No se Permite la Acción.']);
+            if (verifyCsrf()) {
+                redirect('error/show/csrf');
             }
-        }
         /**Instancia del Modelo Usuario*/
         $this->usuarioModel = $this->model('Usuario');
         /**Instancia del Modelo Rol*/
@@ -58,7 +55,7 @@ class UsuarioController extends Controller
             'roles' => $roles
         ];
         /**Agregamos los Datos de la Validación */
-        $data += $this->validate();
+        $data += $this->validateStore();
         /**Si no hubo errores hacemos el insert
          * caso contrario Retornamos la Vista con los errores.
          */
@@ -107,6 +104,42 @@ class UsuarioController extends Controller
             'remail' => $usuario->email,
         ];
         return $this->view('usuario/edit', $data);
+    }
+    /**
+     * Método por el cual se modifica el usuario
+     * en la base de datos.
+     * @return void
+     */
+    public function update()
+    {
+        /**Obtenemos Todos los Roles */
+        $roles = $this->rolModel->getRoles();
+        $data = [
+            'titulo' => 'Editar Usuarios',
+            'roles' => $roles
+        ];
+        /**Agregamos los Datos de la Validación */
+        $data += $this->validateUpdate();
+        /**Si no hubo errores hacemos el insert
+         * caso contrario Retornamos la Vista con los errores.
+         */
+        if (!$data['error']) {
+            /**Comprobamos que no hubo errores en el Insert y hacemos un redirect a 
+             * usuarios/index con un mensaje
+             * si hubo errores devolvemos la vista con un mensaje de error y
+             * con todos los datos ingresados.
+             */
+            if ($this->usuarioModel->update($data)) {
+                flash('usuario_index_mensaje', 'El Usuario fue Modificado Correctamente.');
+                redirect('usuario');
+            } else {
+                flash('usuario_edit_mensaje', 'Ocurrió un Error al Intentar Modificar el Usuario.', 'danger');
+                $this->view('usuario/edit', $data);
+            }
+        } else {
+            flash('usuario_edit_mensaje', 'Surgieron Errores Por Favor Verifica, los Datos Ingresados.', 'warning');
+            $this->view('usuario/edit', $data);
+        }
     }
     public function destroy()
     {
@@ -169,11 +202,11 @@ class UsuarioController extends Controller
     }
     /**Valida todos los Datos de los Usuarios y los
      * Sanitiza, comprueba que no existan DNI duplicados y 
-     * también los emails.
+     * también los emails, al ser dados de Alta
      *
      * @return [array] $data Un array con todos los datos.
      */
-    public function validate()
+    public function validateStore()
     {
         /**Recepción de Campos */
         $data = [
@@ -257,6 +290,81 @@ class UsuarioController extends Controller
             $data['error'] = true;
         } else if ($data['clave'] != $data['rclave']) {
             $data['rclave_err'] = 'Las Contraseñas no Coinciden.';
+            $data['error'] = true;
+        }
+        return $data;
+    }
+        /**Valida todos los Datos de los Usuarios y los
+     * Sanitiza, comprueba que no existan DNI duplicados y 
+     * también los emails, al ser Modificados.
+     *
+     * @return [array] $data Un array con todos los datos.
+     */
+    public function validateUpdate()
+    {
+        /**Recepción de Campos */
+        $data = [
+            'id'=>filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT),
+            'nombre' => ucwords(strtolower(trim(filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING)))),
+            'apellido' => ucwords(strtolower(trim(filter_input(INPUT_POST, 'apellido', FILTER_SANITIZE_STRING)))),
+            'dni' => filter_input(INPUT_POST, 'dni', FILTER_SANITIZE_NUMBER_INT),
+            'rol' => filter_input(INPUT_POST, 'rol', FILTER_SANITIZE_NUMBER_INT),
+            'email' => strtolower(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL)),
+            'remail' => strtolower(filter_input(INPUT_POST, 'remail', FILTER_SANITIZE_EMAIL)),
+            'nombre_err' => '',
+            'apellido_err' => '',
+            'dni_err' => '',
+            'rol_err' => '',
+            'email_err' => '',
+            'remail_err' => '',
+            'error' => false
+        ];
+        /**Validaciones de Todos los Campos con las Distintas Reglas*/
+        //Nombre
+        if (empty($data['nombre'])) {
+            $data['nombre_err'] = 'El Nombre es un Campo Obligatorio.';
+            $data['error'] = true;
+        } else if (strlen($data['nombre']) < 3) {
+            $data['nombre_err'] = 'El Nombre debe Contener al Menos 3 Caracteres.';
+            $data['error'] = true;
+        }
+        //Apellido
+        if (empty($data['apellido'])) {
+            $data['apellido_err'] = 'El Apellido es un Campo Obligatorio.';
+            $data['error'] = true;
+        } else if (strlen($data['apellido']) < 3) {
+            $data['apellido_err'] = 'El Apellido debe Contener al Menos 3 Caracteres.';
+            $data['error'] = true;
+        }
+        //DNI
+        if (empty($data['dni'])) {
+            $data['dni_err'] = 'El Número de Documento es un Campo Obligatorio.';
+            $data['error'] = true;
+        } else if (strlen($data['dni']) < 7 && filter_var($data['dni'], FILTER_VALIDATE_INT)) {
+            $data['dni_err'] = 'El Número de Documento debe Contener al Menos 7 Números.';
+            $data['error'] = true;
+        } else {
+            if ($this->usuarioModel->existsUsuarioByDocumento($data['dni'], $data['id'])) {
+                $data['dni_err'] = 'El Número de Documento ya se Encuentra en Uso por Otro Usuario.';
+                $data['error'] = true;
+            }
+        }
+        //Email
+        if (empty($data['email']) && filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $data['email_err'] = 'El Email es un Campo Obligatorio y debe Ser Válido.';
+            $data['error'] = true;
+        } else {
+            if ($this->usuarioModel->existsUsuarioByEmail($data['email'], $data['id'])) {
+                $data['email_err'] = 'El Email ya se Encuentra en Uso por Otro Usuario.';
+                $data['error'] = true;
+            }
+        }
+        //REmail
+        if (empty($data['remail']) && filter_var($data['remail'], FILTER_VALIDATE_EMAIL)) {
+            $data['remail_err'] = 'Confirmar Email es un Campo Obligatorio y debe Ser Válido.';
+            $data['error'] = true;
+        } else if ($data['email'] != $data['remail']) {
+            $data['remail_err'] = 'Los Emails no Coinciden.';
             $data['error'] = true;
         }
         return $data;

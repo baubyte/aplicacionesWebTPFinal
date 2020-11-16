@@ -76,57 +76,63 @@ function isLoggedIn()
  */
 function generateInputCsrf()
 {
-    /**Verificamos si hay un token para la sesión actual. sino lo hay lo generamos,
-     * caso contrario seteamos el valor actual del token en $token.
-     */
-    if (!isset($_SESSION["csrf_token"])) {
-        $token = random_bytes(64);
-        $_SESSION["csrf_token"] = $token;
-    } else {
-        $token = $_SESSION["csrf_token"];
-    }
-    echo "<input type='hidden' name='csrf_token' value='" . base64_encode($token) . "'>";
+    echo "<input type='hidden' name='csrf_token' value='" . getCsrf() . "'>";
 }
 /**
  * Genera un Token para evitar los ataques CSRF
- * Mantener el identificador de "csrf_token" al enviar por ajax.
  *
- * @return $token 
+ * @return $csrfToken 
  */
 function generateCsrf()
+{
+    if (empty($_POST) && empty($_GET)) {
+        $csrfToken = bin2hex(random_bytes(16));
+        $_SESSION[CSRF_TOKEN_NAME] = $csrfToken;
+        $_SESSION["csrf_token_expire"] = time() + intval(CSRF_TOKEN_EXPIRE);
+        return $csrfToken;
+    }
+}
+/**
+ * Comprueba si exite un csrfToken si eciste
+ * Retorna el csrfToken caso contrario lo genera
+ * Mantener el identificador de "csrf_token" al enviar por ajax.
+ *
+ * @return $csrfToken 
+ */
+function getCsrf()
 {
     /**Verificamos si hay un token para la sesión actual. sino lo hay lo generamos,
      * caso contrario seteamos el valor actual del token en $token.
      */
-    if (!isset($_SESSION["csrf_token"])) {
-        $token = random_bytes(64);
-        $_SESSION["csrf_token"] = $token;
+    if (isset($_SESSION[CSRF_TOKEN_NAME])) {
+        $csrfToken = $_SESSION[CSRF_TOKEN_NAME];
     } else {
-        $token = $_SESSION["csrf_token"];
+        $csrfToken = generateCsrf();
     }
-    return base64_encode($token);
+    return $csrfToken;
 }
 /**
  * Valida el token que pasemos contra la sesión csrf_token
  * para evitar los ataques con Cross-site request forgery o 
- * falsificación de petición en sitios cruzados
+ * falsificación de petición en sitios cruzados.
+ * Se puede agrear la validacion para el metodo GET
  *
  * @param [string] $token token a validar
  * @return boolean 
  */
 function verifyCsrf()
 {
-    $token = isset($_POST['csrf_token']) ? base64_decode($_POST['csrf_token']) : '';
+    $request = $_SERVER["REQUEST_METHOD"];
+    $methods = ["POST" => $_POST];
     $verify = false;
-    /**Si el parámetro $token es distinto a la 
-     * sesión csrf_token blanqueamos las sesión 
-     **/
-    if (isset($_SESSION["csrf_token"])) {
-        if ($token != $_SESSION["csrf_token"]) {
-            unset($_SESSION["csrf_token"]);
-            $verify = false;
-        } else {
+    if(!empty($methods[$request])){
+        if (!isset($methods[$request][CSRF_TOKEN_NAME])) {
             $verify = true;
+        }
+        if ($_SESSION["csrf_token_expire"] < time()) {
+            if ($methods[$request][CSRF_TOKEN_NAME] !== $_SESSION[CSRF_TOKEN_NAME]) {
+                $verify = true;
+            }
         }
     }
     return $verify;
