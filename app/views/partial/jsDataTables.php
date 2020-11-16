@@ -12,7 +12,7 @@
 <script src="<?php echo URL_ROOT; ?>/dataTables/responsive/js/dataTables.responsive.js"></script>
 <script src="<?php echo URL_ROOT; ?>/dataTables/responsive/js/responsive.bootstrap4.js"></script>
 <script>
-    var tablaUsuarios = $('#tablaUsuarios').DataTable({
+    let tablaUsuarios = $('#tablaUsuarios').DataTable({
         'language': {
             'url': '<?php echo URL_ROOT; ?>/dataTables/Spanish.json'
         },
@@ -124,13 +124,13 @@
     });
     /**Acciones Botón Editar */
     $('#tablaUsuarios tbody').on('click', '#edit', function() {
-        var data = tablaUsuarios.row($(this).parents("tr")).data();
+        let data = tablaUsuarios.row($(this).parents("tr")).data();
         /**Redirigimos al formulario de Edición con el id */
         $(location).attr('href','<?php echo URL_ROOT; ?>/usuario/edit/' + data.id);
     });
     /**Acciones Botón Eliminar */
     $('#tablaUsuarios tbody').on('click', '#destroy', function() {
-        var data = tablaUsuarios.row($(this).parents("tr")).data();
+        let data = tablaUsuarios.row($(this).parents("tr")).data();
         /**Asignamos el id al Hidden id */
         $('#modalEliminar #id').val(data.id);
         /**Abrimos el Modal */
