@@ -16,7 +16,7 @@ class Rol{
      */
     public function getRoles()
     {
-        $this->db->query('SELECT * FROM roles');
+        $this->db->query('SELECT * FROM roles WHERE deleted IS FALSE');
         return $this->db->resultSet();
     }
 

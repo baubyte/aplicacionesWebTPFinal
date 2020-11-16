@@ -1,7 +1,7 @@
 <?php require APP_ROOT ."/views/partial/navbar.php"; ?>
 <?php require APP_ROOT ."/views/partial/sidebarAdministrador.php"; ?>
 <article>
-  <div class="container">
+  <div class="container-fluid">
   <?php flash('usuario_index_mensaje'); ?>
   <div class="row">
         <div class="col-12 text-center">
@@ -18,6 +18,7 @@
                 <th scope="col">Email</th>
                 <th scope="col">Rol</th>
                 <th scope="col">Acciones</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>

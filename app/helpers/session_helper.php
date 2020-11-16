@@ -70,7 +70,26 @@ function isLoggedIn()
     }
 }
 /**
- * Genera Token para evitar los ataques CSRF
+ * Genera un INPUT con Token para evitar los ataques CSRF
+ *
+ * @return $token 
+ */
+function generateInputCsrf()
+{
+    /**Verificamos si hay un token para la sesión actual. sino lo hay lo generamos,
+     * caso contrario seteamos el valor actual del token en $token.
+     */
+    if (!isset($_SESSION["csrf_token"])) {
+        $token = random_bytes(64);
+        $_SESSION["csrf_token"] = $token;
+    } else {
+        $token = $_SESSION["csrf_token"];
+    }
+    echo "<input type='hidden' name='csrf_token' value='" . base64_encode($token) . "'>";
+}
+/**
+ * Genera un Token para evitar los ataques CSRF
+ * Mantener el identificador de "csrf_token" al enviar por ajax.
  *
  * @return $token 
  */
@@ -85,7 +104,7 @@ function generateCsrf()
     } else {
         $token = $_SESSION["csrf_token"];
     }
-    echo "<input type='hidden' name='csrf_token' value='" . base64_encode($token) . "'>";
+    return base64_encode($token);
 }
 /**
  * Valida el token que pasemos contra la sesión csrf_token

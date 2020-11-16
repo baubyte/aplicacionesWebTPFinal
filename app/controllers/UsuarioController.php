@@ -83,18 +83,70 @@ class UsuarioController extends Controller
             $this->view('usuario/create', $data);
         }
     }
+    /**
+     * Método por el cual se muestra la vista para 
+     * con el formulario el editar un usuario
+     * 
+     * @return void
+     */
+    public function edit($id)
+    {
+        /**Obtenemos Todos los Roles */
+        $roles = $this->rolModel->getRoles();
+        $usuario = $this->usuarioModel->getUsuarioById($id);
+        $data = [
+            'titulo' => 'Editar Usuarios',
+            'roles' => $roles,
+            'id' => $usuario->id,
+            'nombre' => $usuario->nombre,
+            'apellido' => $usuario->apellido,
+            'dni' => $usuario->dni,
+            'rol' => $usuario->rol_id,
+            'email' => $usuario->email,
+            'remail' => $usuario->email,
+        ];
+        return $this->view('usuario/edit', $data);
+    }
     public function getUsuariosDataTables()
     {
+        /**Array para el response */
+        $dataResponse = [];
         /**Recibimos lo Valores de DataTable */
-        $columnIndex = $_GET['order'][0]['column'];// Índice de columna
+        $columnIndex = $_POST['order'][0]['column']; // Índice de columna
+        $draw = $_POST['draw'];
         $data = [
-            'draw' => $_GET['draw'],
-            'row' => $_GET['start'],
-            'rowPerPage' => $_GET['length'],// Registros por Pagina
-            'columnName' => $_GET['columns'][$columnIndex]['data'],// Nombre de la Columna
-            'columnSortOrder' => $_GET['order'][0]['dir'],// Orden ASC o DESC
-            'searchValue' => filter_input(INPUT_GET, ['search']['value'], FILTER_SANITIZE_STRING)// Valor Buscado
+            'row' => $_POST['start'],//Desde que registro para registro por pagina
+            'rowPerPage' => $_POST['length'], //Hasta que registro para Registros por Pagina
+            'columnName' => $_POST['columns'][$columnIndex]['data'], // Nombre de la Columna
+            'columnSortOrder' => $_POST['order'][0]['dir'], // Orden ASC o DESC
+            'searchValue' => filter_var($_POST['search']['value'], FILTER_SANITIZE_STRING) // Valor Buscado
         ];
+        /** Número total de registros sin filtrar */
+        $totalRegistros = $this->usuarioModel->countUsuarios();
+        /**Número total de registros con filtro */
+        $totalRegistrosFiltrado = $this->usuarioModel->countUsuarios($data['searchValue']);
+        $usuarios = $this->usuarioModel->getUsuariosDataTables($data);
+        /**Armamos el dataResponse */
+        foreach ($usuarios as $key => $usuario) {
+            $dataResponse[] = [
+                'id' => $usuario->id,
+                'key' => ($key + 1),
+                'apellido' => $usuario->apellido,
+                'nombre' => $usuario->nombre,
+                'dni' => $usuario->dni,
+                'email' => $usuario->email,
+                'rol' => $usuario->rol,
+            ];
+        }
+        /**Armamos el response para el Ajax */
+        $response = [
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRegistros,
+            "iTotalDisplayRecords" => $totalRegistrosFiltrado,
+            "aaData" => $dataResponse
+        ];
+        /**Mostramos el resultado en JSON */
+        echo json_encode($response);
     }
     /**Valida todos los Datos de los Usuarios y los
      * Sanitiza, comprueba que no existan DNI duplicados y 

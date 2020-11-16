@@ -62,7 +62,7 @@
                     <span class="invalid-feedback"><?php echo (!empty($data['rclave_err'])) ?  $data['rclave_err'] : '' ;  ?></span>
                 </div>
             </div>
-            <?php generateCsrf(); ?>
+            <?php generateInputCsrf(); ?>
             <div class="form-row">
                 <button type="submit" class="btn btn-success btn-lg">Dar de alta</button>
             </div>

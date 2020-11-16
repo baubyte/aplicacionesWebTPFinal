@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="<?php echo URL_ROOT; ?>/css/EstilosGeneral.css" />
     <!-- Check CSS Datatables -->
   <?php
-  if (isset($data['dataTables'])) {
+  if (isset($data['dataTables']) && $data['dataTables']) {
     require_once APP_ROOT . "/views/partial/cssDataTables.php";
   }
   ?>

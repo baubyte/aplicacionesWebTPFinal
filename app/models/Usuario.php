@@ -106,7 +106,7 @@ class Usuario
     public function existsUsuarioByDocumento($dni, $id = null)
     {
         $filter = (!empty($id)) ? 'AND id <> :id' : '';
-        $this->db->query('SELECT * FROM usuarios WHERE dni = :dni');
+        $this->db->query("SELECT * FROM usuarios WHERE dni = :dni $filter");
         $this->db->bind(':dni', $dni);
         if (!empty($id)) {
             $this->db->bind(':id', $id);
@@ -148,7 +148,59 @@ class Usuario
      */
     public function getUsuarios()
     {
-        $this->db->query('SELECT * FROM usuarios');
+        $this->db->query('SELECT * FROM usuarios WHERE deleted IS FALSE');
         return $this->db->resultSet();
+    }
+    /**Se Obtiene todos los Usuarios Disponibles
+     * para ser usado con DataTables
+     *
+     * @return [objet] Filas como Objeto
+     */
+    public function getUsuariosDataTables($data)
+    {
+        $searchQuery="";
+        /**Comprobamos si es -1 es decir mostramos todos */
+        $limit = ($data['rowPerPage'] == -1) ? "" : " LIMIT :row , :rowPerPage";
+        /**Comprobamos si existe un filtro en la búsqueda */
+        if (!empty($data['searchValue'])) {
+            /**Consulta per Buscar los Valores */
+            $searchQuery = " AND (u.nombre LIKE :search OR u.apellido LIKE :search OR u.dni LIKE :search OR u.email LIKE :search OR r.nombre LIKE :search)";
+        }
+        $this->db->query("SELECT u.id, u.nombre,u.apellido, u.dni, u.email, r.nombre AS rol 
+                            FROM usuarios u LEFT JOIN roles r ON u.rol_id = r.id
+                            WHERE u.deleted IS FALSE $searchQuery
+                            ORDER BY {$data["columnName"]} {$data["columnSortOrder"]} $limit
+                        ");
+        if (!empty($limit)) {
+            $this->db->bind(':row', $data['row'], PDO::PARAM_INT);
+            $this->db->bind(':rowPerPage', $data['rowPerPage'], PDO::PARAM_INT);
+        }
+        if (!empty($searchQuery)) {
+            $this->db->bind(':search', '%'.$data['searchValue'].'%');
+        }
+        return $this->db->resultSet();
+    }
+    /**
+     * Cuanta la cantidad de usuarios
+     *
+     * @param [string] $filter Valor a fieltrar es opcional
+     * @return cantidad de registros
+     */
+    public function countUsuarios($filter = null)
+    {
+        $searchQuery="";
+        /**Comprobamos si existe un filtro en la búsqueda */
+        if (!empty($filter)) {
+            /**Consulta per Buscar los Valores */
+            $searchQuery = " AND (u.nombre LIKE :search OR u.apellido LIKE :search OR u.dni LIKE :search OR u.email LIKE :search OR r.nombre LIKE :search)";
+        }
+        $this->db->query("SELECT u.nombre,u.apellido, u.dni, u.email, r.nombre AS rol 
+                            FROM usuarios u LEFT JOIN roles r ON u.rol_id = r.id
+                            WHERE u.deleted IS FALSE $searchQuery");
+        if (!empty($searchQuery)) {
+            $this->db->bind(':search', '%'.$filter.'%');
+        }
+        $this->db->resultSet();
+        return $this->db->rowCount();
     }
 }
