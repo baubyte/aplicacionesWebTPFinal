@@ -89,7 +89,7 @@ CREATE TABLE `inscripciones_mesas` (
   `deleted` boolean DEFAULT false
 );
 
-ALTER TABLE `usuarios` ADD FOREIGN KEY (`id`) REFERENCES `roles` (`id`);
+ALTER TABLE `usuarios` ADD FOREIGN KEY (`rol_id`) REFERENCES `roles` (`id`);
 
 ALTER TABLE `materias_usuarios` ADD FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
 

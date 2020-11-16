@@ -93,6 +93,7 @@ class UsuarioController extends Controller
     {
         /**Obtenemos Todos los Roles */
         $roles = $this->rolModel->getRoles();
+        /**Obtenemos Todos los Datos del Usuario */
         $usuario = $this->usuarioModel->getUsuarioById($id);
         $data = [
             'titulo' => 'Editar Usuarios',
@@ -107,6 +108,24 @@ class UsuarioController extends Controller
         ];
         return $this->view('usuario/edit', $data);
     }
+    public function destroy()
+    {
+        /**Obtenemos el ID */
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        /**Obtenemos Todos los Datos del Usuario
+         * Validación pendiente para cuanto este logueado
+         */
+        $usuario = $this->usuarioModel->getUsuarioById($id);
+        /**Verificamos si el Usuario se elimino */
+        if ($this->usuarioModel->destroy($id)) {
+            flash('usuario_index_mensaje', 'El Usuario fue Eliminado Correctamente.');
+            redirect('usuario');
+        }else{
+            flash('usuario_index_mensaje', 'Ocurrió un Error al Intentar Eliminar el Usuario.','danger');
+            redirect('usuario');
+        }
+        
+    }
     public function getUsuariosDataTables()
     {
         /**Array para el response */
@@ -115,7 +134,7 @@ class UsuarioController extends Controller
         $columnIndex = $_POST['order'][0]['column']; // Índice de columna
         $draw = $_POST['draw'];
         $data = [
-            'row' => $_POST['start'],//Desde que registro para registro por pagina
+            'row' => $_POST['start'], //Desde que registro para registro por pagina
             'rowPerPage' => $_POST['length'], //Hasta que registro para Registros por Pagina
             'columnName' => $_POST['columns'][$columnIndex]['data'], // Nombre de la Columna
             'columnSortOrder' => $_POST['order'][0]['dir'], // Orden ASC o DESC

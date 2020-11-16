@@ -35,9 +35,9 @@ class Usuario
         }
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
-        $this->db->query('UPDATE usuarios SET deleted = 1 WHERE id = :id');
+        $this->db->query('UPDATE usuarios SET deleted = TRUE WHERE id = :id');
         $this->db->bind(':id', $id);
         if ($this->db->execute()) {
             return true;

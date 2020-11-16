@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 10-11-2020 a las 20:03:11
+-- Tiempo de generación: 16-11-2020 a las 01:30:33
 -- Versión del servidor: 5.7.24
 -- Versión de PHP: 7.2.19
 
@@ -148,6 +148,15 @@ CREATE TABLE `roles` (
   `deleted` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `roles`
+--
+
+INSERT INTO `roles` (`id`, `nombre`, `descripcion`, `created_at`, `updated_at`, `deleted`) VALUES
+(1, 'Administrador', 'Administradores', '2020-11-13 02:49:39', '2020-11-15 15:47:01', 0),
+(2, 'Profesor', 'Profesores', '2020-11-13 02:49:39', '2020-11-13 02:49:39', 0),
+(3, 'Alumno', 'Alumnos', '2020-11-13 02:50:01', '2020-11-13 02:50:01', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -167,6 +176,44 @@ CREATE TABLE `usuarios` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `rol_id`, `email`, `password`, `nombre`, `apellido`, `dni`, `token`, `created_at`, `updated_at`, `deleted`) VALUES
+(1, 3, 'paredbaez.martin@gmail.com', '$2y$10$zqiMDiDosRwYW7WPz0zwheSpdN8OTxfj0DR29l4qNgcXkMzB.E9AC', 'MARTIN JOSE', 'PARED BAEZ', '35001377', NULL, '2020-11-15 00:19:07', '2020-11-15 00:19:07', 0),
+(33, 2, 'pared.martin@gmail.com', '$2y$10$CYPKOeM0V/DuoVOhnPfJNODIW6Ed8O5sg0NJ/HyHBPNsV9SwzHDne', 'Martin', 'Pared', '12345678', NULL, '2020-11-15 04:34:54', '2020-11-15 04:34:54', 0),
+(34, 1, 'garcia81@email.com', NULL, 'María', 'García', '53052515', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(35, 2, 'sanz67@mail.com', NULL, 'Manuel', 'Sanz', '86391305', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(36, 1, 'jsantos@email.com', NULL, 'Javier', 'Santos', '19471859', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(37, 2, 'jperez@email.es', NULL, 'Juan', 'Pérez', '44515971', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(38, 1, 'joszafra@mail.es', NULL, 'José Manuel', 'Zafra', '52837049', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(39, 3, 'jreina@mail.com', NULL, 'José María', 'Reina', '81585921', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(40, 1, 'josediez@email.net', NULL, 'José', 'Diez', '50440395', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(41, 3, 'mrincon@correo.es', NULL, 'Manuela', 'Rincón', '80393926', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(42, 3, 'm.garrigos@correo.com', NULL, 'María Isabel', 'Garrigós', '71419888N', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(43, 3, 'beatrizdomenech55@correo.com', NULL, 'Beatriz', 'Domenech', '85039168', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(44, 2, 'c.jimenez@mail.net', NULL, 'Concepción', 'Jiménez', '23381391', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(45, 1, 'muñoz10@mail.com', NULL, 'Nuria', 'Muñoz', '35013679', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(46, 1, 'ale.gil@mail.com', NULL, 'Alejandro', 'Gil', '10773315', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(47, 2, 'p.olmedo@correo.com', NULL, 'Pablo', 'Olmedo', '08356236', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(48, 1, 'f.vargas@mail.es', NULL, 'Francisco', 'Vargas', '93139420', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(49, 1, 'cruz16@correo.com', NULL, 'Jesús', 'Cruz', '98546899', NULL, '2020-11-15 04:35:12', '2020-11-16 01:24:08', 0),
+(50, 3, 'enriquez20@email.net', NULL, 'Lucia', 'Enríquez', '03680026', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(51, 2, 'josefa.cuesta@correo.com', NULL, 'Josefa', 'Cuesta', '75838470', NULL, '2020-11-15 04:35:12', '2020-11-16 01:24:13', 0),
+(52, 3, 'car.pelayo@mail.net', NULL, 'Carmen', 'Pelayo', '13554849', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(53, 2, 'c.rodriguez@correo.net', NULL, 'Concepción', 'Rodríguez', '37164936', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(54, 2, 'conmorillo@correo.net', NULL, 'Concepción', 'Morillo', '51023289', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(55, 2, 'marruiz@mail.es', NULL, 'María Isabel', 'Ruiz', '86552162', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(56, 1, 'svega@email.net', NULL, 'Salvador', 'Vega', '58560618', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(57, 2, 'yolandaleiva43@email.es', NULL, 'Yolanda', 'Leiva', '69798044', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(58, 1, 's.valero@mail.com', NULL, 'Sergio', 'Valero', '64968070', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(59, 3, 'carlos.martinez@correo.com', NULL, 'Carlos', 'Martínez', '86877265', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(60, 3, 'msanchez@email.com', NULL, 'María', 'Sánchez', '20590436', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(61, 3, 'martin21@correo.com', NULL, 'Lucia', 'Martin', '55336664', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(62, 2, 'manuelgallego@email.es', NULL, 'Manuel', 'Gallego', '71205774', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(63, 2, 'laura.santana@mail.com', NULL, 'Laura', 'Santana', '71265515', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0);
 
 --
 -- Índices para tablas volcadas
@@ -234,7 +281,8 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `usuarios_ibfk_1` (`rol_id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -286,13 +334,13 @@ ALTER TABLE `notas`
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- Restricciones para tablas volcadas
@@ -335,7 +383,7 @@ ALTER TABLE `notas`
 -- Filtros para la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id`) REFERENCES `roles` (`id`);
+  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
