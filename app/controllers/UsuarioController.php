@@ -22,7 +22,7 @@ class UsuarioController extends Controller
     {
         $data = [
             'titulo' => 'Administrador',
-            'dataTables' => true
+            'dataTables' => 'Usuario'
         ];
         return $this->view('usuario/index', $data);
     }

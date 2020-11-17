@@ -3,8 +3,8 @@
 <script src="<?php echo URL_ROOT; ?>/js/bootstrap.min.js"></script>
 <!-- Check JS Datatables -->
 <?php 
-if (isset($data['dataTables']) && $data['dataTables']) {
-    require_once APP_ROOT . "/views/partial/jsDataTables.php"; 
+if (isset($data['dataTables'])) {
+    require_once APP_ROOT . "/views/partial/js/jsDataTables.php"; 
 }
 ?>
 <script src="<?php echo URL_ROOT; ?>/js/main.js"></script>

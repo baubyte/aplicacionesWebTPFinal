@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="<?php echo URL_ROOT; ?>/css/EstilosGeneral.css" />
     <!-- Check CSS Datatables -->
   <?php
-  if (isset($data['dataTables']) && $data['dataTables']) {
-    require_once APP_ROOT . "/views/partial/cssDataTables.php";
+  if (isset($data['dataTables'])) {
+    require_once APP_ROOT . "/views/partial/css/cssDataTables.php";
   }
   ?>
   <title><?php echo isset($data['titulo']) ? $data['titulo'] : SITE_NAME; ?></title>
