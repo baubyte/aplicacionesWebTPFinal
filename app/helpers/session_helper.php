@@ -85,7 +85,7 @@ function generateInputCsrf()
  */
 function generateCsrf()
 {
-    if (empty($_POST) && empty($_GET)) {
+    if (empty($_POST)) {
         $csrfToken = bin2hex(random_bytes(16));
         $_SESSION[CSRF_TOKEN_NAME] = $csrfToken;
         $_SESSION["csrf_token_expire"] = time() + intval(CSRF_TOKEN_EXPIRE);

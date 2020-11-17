@@ -158,6 +158,11 @@ class UsuarioController extends Controller
             redirect('usuario');
         }
     }
+    /**
+     * falta documentar
+     *
+     * @return void
+     */
     public function getUsuariosDataTables()
     {
         /**Array para el response */

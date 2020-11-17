@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 16-11-2020 a las 01:30:33
+-- Tiempo de generación: 17-11-2020 a las 02:12:52
 -- Versión del servidor: 5.7.24
 -- Versión de PHP: 7.2.19
 
@@ -182,8 +182,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `rol_id`, `email`, `password`, `nombre`, `apellido`, `dni`, `token`, `created_at`, `updated_at`, `deleted`) VALUES
-(1, 3, 'paredbaez.martin@gmail.com', '$2y$10$zqiMDiDosRwYW7WPz0zwheSpdN8OTxfj0DR29l4qNgcXkMzB.E9AC', 'MARTIN JOSE', 'PARED BAEZ', '35001377', NULL, '2020-11-15 00:19:07', '2020-11-15 00:19:07', 0),
-(33, 2, 'pared.martin@gmail.com', '$2y$10$CYPKOeM0V/DuoVOhnPfJNODIW6Ed8O5sg0NJ/HyHBPNsV9SwzHDne', 'Martin', 'Pared', '12345678', NULL, '2020-11-15 04:34:54', '2020-11-15 04:34:54', 0),
+(1, 1, 'paredbaez.martin@gmail.com', '$2y$10$zqiMDiDosRwYW7WPz0zwheSpdN8OTxfj0DR29l4qNgcXkMzB.E9AC', 'Martin Jose', 'Pared Baez', '12345679', NULL, '2020-11-15 00:19:07', '2020-11-17 02:11:13', 0),
+(33, 2, 'pared.martin@gmail.com', '$2y$10$CYPKOeM0V/DuoVOhnPfJNODIW6Ed8O5sg0NJ/HyHBPNsV9SwzHDne', 'Martin', 'Pared', '12345678', NULL, '2020-11-15 04:34:54', '2020-11-17 00:40:01', 1),
 (34, 1, 'garcia81@email.com', NULL, 'María', 'García', '53052515', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
 (35, 2, 'sanz67@mail.com', NULL, 'Manuel', 'Sanz', '86391305', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
 (36, 1, 'jsantos@email.com', NULL, 'Javier', 'Santos', '19471859', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
@@ -192,7 +192,7 @@ INSERT INTO `usuarios` (`id`, `rol_id`, `email`, `password`, `nombre`, `apellido
 (39, 3, 'jreina@mail.com', NULL, 'José María', 'Reina', '81585921', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
 (40, 1, 'josediez@email.net', NULL, 'José', 'Diez', '50440395', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
 (41, 3, 'mrincon@correo.es', NULL, 'Manuela', 'Rincón', '80393926', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
-(42, 3, 'm.garrigos@correo.com', NULL, 'María Isabel', 'Garrigós', '71419888N', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(42, 3, 'm.garrigos@correo.com', NULL, 'María Isabel', 'Garrigós', '71419888', NULL, '2020-11-15 04:35:12', '2020-11-17 00:50:03', 0),
 (43, 3, 'beatrizdomenech55@correo.com', NULL, 'Beatriz', 'Domenech', '85039168', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
 (44, 2, 'c.jimenez@mail.net', NULL, 'Concepción', 'Jiménez', '23381391', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
 (45, 1, 'muñoz10@mail.com', NULL, 'Nuria', 'Muñoz', '35013679', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
