@@ -1,6 +1,6 @@
 <!-------------------------------------NAV--------------------------------------------->  
 <nav class="fixed-top navbar navbar-dark" id="navBar">
-    <a class="navbar-brand nav">
+    <a href="<?php echo URL_ROOT; ?>" class="navbar-brand nav">
       <img src="<?php echo URL_ROOT; ?>/img/logo.png" alt="logo" height="50px" width="190px">
     </a>
     <form class="form-inline">

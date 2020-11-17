@@ -5,9 +5,9 @@ class UsuarioController extends Controller
     public function __construct()
     {
         /**Peticiones por POST necesario el csrf_token */
-            if (verifyCsrf()) {
-                redirect('error/show/csrf');
-            }
+        if (verifyCsrf()) {
+            redirect('error/show/csrf');
+        }
         /**Instancia del Modelo Usuario*/
         $this->usuarioModel = $this->model('Usuario');
         /**Instancia del Modelo Rol*/
@@ -153,11 +153,10 @@ class UsuarioController extends Controller
         if ($this->usuarioModel->destroy($id)) {
             flash('usuario_index_mensaje', 'El Usuario fue Eliminado Correctamente.');
             redirect('usuario');
-        }else{
-            flash('usuario_index_mensaje', 'Ocurrió un Error al Intentar Eliminar el Usuario.','danger');
+        } else {
+            flash('usuario_index_mensaje', 'Ocurrió un Error al Intentar Eliminar el Usuario.', 'danger');
             redirect('usuario');
         }
-        
     }
     public function getUsuariosDataTables()
     {
@@ -199,6 +198,27 @@ class UsuarioController extends Controller
         ];
         /**Mostramos el resultado en JSON */
         echo json_encode($response);
+    }
+    /**
+     * FALTA login
+     *
+     * @return void
+     */
+    public function login()
+    {
+        $data = [
+            'titulo' => 'Inicio de Sesión',
+        ];
+        return $this->view('usuario/login', $data);
+    }
+    /**
+     * FALTA INICIAR SESIÓN
+     *
+     * @return void
+     */
+    public function startsession()
+    {
+        # code...
     }
     /**Valida todos los Datos de los Usuarios y los
      * Sanitiza, comprueba que no existan DNI duplicados y 
@@ -294,7 +314,7 @@ class UsuarioController extends Controller
         }
         return $data;
     }
-        /**Valida todos los Datos de los Usuarios y los
+    /**Valida todos los Datos de los Usuarios y los
      * Sanitiza, comprueba que no existan DNI duplicados y 
      * también los emails, al ser Modificados.
      *
@@ -304,7 +324,7 @@ class UsuarioController extends Controller
     {
         /**Recepción de Campos */
         $data = [
-            'id'=>filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT),
+            'id' => filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT),
             'nombre' => ucwords(strtolower(trim(filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING)))),
             'apellido' => ucwords(strtolower(trim(filter_input(INPUT_POST, 'apellido', FILTER_SANITIZE_STRING)))),
             'dni' => filter_input(INPUT_POST, 'dni', FILTER_SANITIZE_NUMBER_INT),

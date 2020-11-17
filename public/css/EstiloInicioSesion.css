@@ -1,10 +1,6 @@
-html{
-    height: 600px;
-        background-image: url(./img/FondoIndex.jpg);
 
-}
 body{
-    background-image: url(/img/FondoIndex.jpg);
+    background-image: url(../img/FondoIndex.jpg);
     background-size: cover;
     background-repeat: no-repeat;
 }

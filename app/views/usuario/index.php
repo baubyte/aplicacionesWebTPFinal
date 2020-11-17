@@ -1,3 +1,4 @@
+<?php require APP_ROOT . "/views/partial/header.php"; ?>
 <?php require APP_ROOT . "/views/partial/navbar.php"; ?>
 <?php require APP_ROOT . "/views/partial/sidebarAdministrador.php"; ?>
 <article>
@@ -51,3 +52,4 @@
   <!-- Modal Eliminar -->
   </div>
 </article>
+<?php require APP_ROOT . "/views/partial/footer.php"; ?>

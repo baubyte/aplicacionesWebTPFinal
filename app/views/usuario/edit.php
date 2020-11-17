@@ -1,5 +1,6 @@
-<?php require_once APP_ROOT . "/views/partial/navbar.php"; ?>
-<?php require_once APP_ROOT . "/views/partial/sidebarAdministrador.php"; ?>
+<?php require APP_ROOT . "/views/partial/header.php"; ?>
+<?php require APP_ROOT . "/views/partial/navbar.php"; ?>
+<?php require APP_ROOT . "/views/partial/sidebarAdministrador.php"; ?>
 <!-- Alta de Usuarios -->
 <article class="MainMenu">
     <div class="row">
@@ -64,3 +65,4 @@
     </div>
 </article>
 <!-- Alta de Usuarios -->
+<?php require APP_ROOT . "/views/partial/footer.php"; ?>
