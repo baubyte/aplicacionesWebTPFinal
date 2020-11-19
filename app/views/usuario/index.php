@@ -37,7 +37,7 @@
         </div>
         <div class="modal-body">
           <h5 class="text-bold">¿Estas seguro de Eliminar el Usuario?</h5>
-          <form action="<?php echo URL_ROOT; ?>/user/destroy" method="post">
+          <form action="<?php echo URL_ROOT; ?>/usuario/destroy" method="post">
           <input type="hidden" name="id" id="id" value="">
           <?php generateInputCsrf(); ?>
         </div>

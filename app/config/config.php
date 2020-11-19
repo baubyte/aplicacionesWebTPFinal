@@ -25,6 +25,8 @@ define('URL_ROOT', PROTOCOL.'aplicacioneswebtpfinal.test');
 date_default_timezone_set('America/Argentina/Buenos_Aires');
 /**Nombre CSRF TOKEN */
 define('CSRF_TOKEN_NAME', 'csrf_token');
+/**Tiempo de Duracion del CSRF_TOKEN (10 min.) */
+define('CSRF_TOKEN_EXPIRE', 100);
 /**SITE_NAME Nombre de la Aplicación */
 define('SITE_NAME', 'Aplicaciones Web UNLZ');
 /**SITE_NAME Version de la Aplicación */

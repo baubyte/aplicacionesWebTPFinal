@@ -98,11 +98,10 @@ function generateInputCsrf()
  */
 function generateCsrf()
 {
-    if (empty($_POST)) {
-        $csrfToken = bin2hex(random_bytes(16));
-        $_SESSION[CSRF_TOKEN_NAME] = $csrfToken;
-        return $csrfToken;
-    }
+    $csrfToken = bin2hex(random_bytes(32));
+    $_SESSION[CSRF_TOKEN_NAME] = $csrfToken;
+    $_SESSION["csrf_token_expire"] = time() + intval(CSRF_TOKEN_EXPIRE);
+    return $csrfToken;
 }
 /**
  * Comprueba si exite un csrfToken si eciste
@@ -116,7 +115,7 @@ function getCsrf()
     /**Verificamos si hay un token para la sesión actual. sino lo hay lo generamos,
      * caso contrario seteamos el valor actual del token en $token.
      */
-    if (isset($_SESSION[CSRF_TOKEN_NAME])) {
+    if (isset($_SESSION[CSRF_TOKEN_NAME]) && $_SESSION["csrf_token_expire"] > time()) {
         $csrfToken = $_SESSION[CSRF_TOKEN_NAME];
     } else {
         $csrfToken = generateCsrf();
@@ -140,9 +139,10 @@ function verifyCsrf()
     if (!empty($methods[$request])) {
         if (!isset($methods[$request][CSRF_TOKEN_NAME])) {
             $verify = true;
-        }
-        if ($methods[$request][CSRF_TOKEN_NAME] !== $_SESSION[CSRF_TOKEN_NAME]) {
-            $verify = true;
+        } else if ($_SESSION["csrf_token_expire"] < time()) {
+            if ($methods[$request][CSRF_TOKEN_NAME] !== getCsrf()) {
+                $verify = true;
+            }
         }
     }
     return $verify;

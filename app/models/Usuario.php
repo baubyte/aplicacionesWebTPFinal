@@ -185,7 +185,7 @@ class Usuario
         return $this->db->resultSet();
     }
     /**
-     * Cuanta la cantidad de usuarios
+     * Cuenta la cantidad de usuarios
      *
      * @param [string] $filter Valor a fieltrar es opcional
      * @return cantidad de registros

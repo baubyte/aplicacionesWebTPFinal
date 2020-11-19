@@ -6,8 +6,8 @@ class UsuarioController extends Controller
     {
         /**Peticiones por POST necesario el csrf_token */
         if (verifyCsrf()) {
-            flash('usuario_index_mensaje', 'Fallo la Verificación del Token.','danger');
-            redirect('usuario/index');
+            redirect('error/show/csrf');
+            exit();
         }
         /**Instancia del Modelo Usuario*/
         $this->usuarioModel = $this->model('Usuario');
@@ -51,6 +51,7 @@ class UsuarioController extends Controller
      */
     public function store()
     {
+        /**Comprobamos si es Administrador */
         isAdmin();
         /**Obtenemos Todos los Roles */
         $roles = $this->rolModel->getRoles();
@@ -117,6 +118,7 @@ class UsuarioController extends Controller
      */
     public function update()
     {
+        /**Comprobamos si es Administrador */
         isAdmin();
         /**Obtenemos Todos los Roles */
         $roles = $this->rolModel->getRoles();
@@ -149,6 +151,7 @@ class UsuarioController extends Controller
     }
     public function destroy()
     {
+        /**Comprobamos si es Administrador */
         isAdmin();
         /**Obtenemos el ID */
         $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
@@ -156,12 +159,21 @@ class UsuarioController extends Controller
          * Validación pendiente para cuanto este logueado
          */
         $usuario = $this->usuarioModel->getUsuarioById($id);
-        /**Verificamos si el Usuario se elimino */
-        if ($this->usuarioModel->destroy($id)) {
-            flash('usuario_index_mensaje', 'El Usuario fue Eliminado Correctamente.');
-            redirect('usuario');
+        /**Solo entramos si el Usuario a Eliminar es distinto 
+         * al que se encuentra logueado.
+         * 
+         **/
+        if ($usuario->id != $_SESSION['usuario_id']) {
+            /**Verificamos si el Usuario se elimino */
+            if ($this->usuarioModel->destroy($id)) {
+                flash('usuario_index_mensaje', 'El Usuario fue Eliminado Correctamente.');
+                redirect('usuario');
+            } else {
+                flash('usuario_index_mensaje', 'Ocurrió un Error al Intentar Eliminar el Usuario.', 'danger');
+                redirect('usuario');
+            }
         } else {
-            flash('usuario_index_mensaje', 'Ocurrió un Error al Intentar Eliminar el Usuario.', 'danger');
+            flash('usuario_index_mensaje', 'No Puedes Eliminar Tu Propio Usuario.', 'danger');
             redirect('usuario');
         }
     }
@@ -212,7 +224,7 @@ class UsuarioController extends Controller
         echo json_encode($response);
     }
     /**
-     * FALTA Mejorar
+     * Muestra la vista con el Fromuario de Login
      *
      * @return void
      */
@@ -220,6 +232,7 @@ class UsuarioController extends Controller
     {
         if (isset($_SESSION['usuario_activo']) && $_SESSION['usuario_activo']) {
             redirect('home');
+            exit;
         }
         $data = [
             'titulo' => 'Inicio de Sesión',
@@ -281,8 +294,22 @@ class UsuarioController extends Controller
         unset($_SESSION['usuario_rol']);
         unset($_SESSION['usuario_activo']);
         unset($_SESSION[CSRF_TOKEN_NAME]);
+        unset($_SESSION[CSRF_TOKEN_EXPIRE]);
         session_destroy();
         redirect('usuario/login', $data);
+    }
+    /**
+     * Muestra la vista con el Fromuario de Login
+     *
+     * @return void
+     */
+    public function changepassword()
+    {
+        isLoggedIn();
+        $data = [
+            'titulo' => 'Cambiar Contrseña',
+        ];
+        return $this->view('usuario/changepassword', $data);
     }
     /**Valida todos los Datos de los Usuarios y los
      * Sanitiza, comprueba que no existan DNI duplicados y 
@@ -484,6 +511,60 @@ class UsuarioController extends Controller
             $data['error'] = true;
         } else if (strlen($data['clave']) < 6) {
             $data['clave_err'] = 'La Contraseña debe Contener al Menos 6 Caracteres.';
+            $data['error'] = true;
+        }
+        return $data;
+    }
+    /**Valida todos los Datos de los Usuarios y los
+     * Sanitiza, comprueba que no existan DNI duplicados y 
+     * también los emails, al ser Modificados.
+     *
+     * @return [array] $data Un array con todos los datos.
+     */
+    public function validateUpdatePassword()
+    {
+        /**Recepción de Campos */
+        $data = [
+            'id' => filter_var($_SESSION['usuario_id'], FILTER_SANITIZE_NUMBER_INT),
+            'email' => strtolower(filter_var($_SESSION['usuario_email'], FILTER_SANITIZE_EMAIL)),
+            'nombre_err' => '',
+            'apellido_err' => '',
+            'dni_err' => '',
+            'rol_err' => '',
+            'email_err' => '',
+            'remail_err' => '',
+            'error' => false
+        ];
+        /**Validaciones de Todos los Campos con las Distintas Reglas*/
+        //Contraseña
+        if (empty($data['oclave'])) {
+            $data['clave_err'] = 'La Contraseña Anterior es un Campo Obligatorio.';
+            $data['error'] = true;
+        } else if (strlen($data['clave']) < 6) {
+            $data['clave_err'] = 'La Contraseña debe Anterior Contener al Menos 6 Caracteres.';
+            $data['error'] = true;
+        }else{
+            $usuario = $this->usuarioModel->getUsuarioById($data['id']);
+            if (password_verify($data['oclave'], $usuario->password)) {
+                $data['oclave_err'] = 'La Contraseña debe Anterior No Coincide.';
+                $data['error'] = true;
+            }
+
+        }
+        //Contraseña
+        if (empty($data['clave'])) {
+            $data['clave_err'] = 'La Contraseña es un Campo Obligatorio.';
+            $data['error'] = true;
+        } else if (strlen($data['clave']) < 6) {
+            $data['clave_err'] = 'La Contraseña debe Contener al Menos 6 Caracteres.';
+            $data['error'] = true;
+        }
+        //RContraseña
+        if (empty($data['rclave'])) {
+            $data['rclave_err'] = 'Confirmar Contraseña es un Campo Obligatorio.';
+            $data['error'] = true;
+        } else if ($data['clave'] != $data['rclave']) {
+            $data['rclave_err'] = 'Las Contraseñas no Coinciden.';
             $data['error'] = true;
         }
         return $data;

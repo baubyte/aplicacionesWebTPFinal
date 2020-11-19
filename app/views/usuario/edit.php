@@ -9,7 +9,9 @@
         </div>
     </div>
     <div class="container">
-    <?php flash('usuario_edit_mensaje'); ?>
+    <?php flash('usuario_edit_mensaje'); 
+    echo date('H:i:s',$_SESSION["csrf_token_expire"]);
+    ?>
         <form action="<?php echo URL_ROOT; ?>/usuario/update" method="post">
             <div class="form-row">
                 <div class="col-md-6 mb-3">

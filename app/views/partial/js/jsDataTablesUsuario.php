@@ -141,7 +141,7 @@
     /**Acciones Botón Eliminar */
     $('#tablaUsuarios tbody').on('click', 'button.destroy', function() {
         let data = tablaUsuarios.row($(this).parents("tr")).data();
-        console.log(data);
+        //console.log(data);
         /**Asignamos el id al Hidden id */
         $('#modalEliminar #id').val(data.id);
         /**Abrimos el Modal */

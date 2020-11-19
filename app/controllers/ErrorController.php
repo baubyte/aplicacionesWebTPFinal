@@ -10,6 +10,9 @@ class ErrorController extends Controller
     public function show($error)
     {
         switch ($error) {
+            case 'csrf':
+                $data = ['error' => 'Fallo la Verificación del Token.'];
+                break;
             case 'view':
                 $data = ['error' => 'No encontramos lo que Buscabas, regrese e Intente de Nuevo.'];
                 break;
@@ -17,6 +20,6 @@ class ErrorController extends Controller
                 $data = ['error' => 'Surgió un Error. Intente de Nuevo.'];
                 break;
         }
-        return $this->view('error/index', $data);
+        return $this->view('error/show', $data);
     }
 }

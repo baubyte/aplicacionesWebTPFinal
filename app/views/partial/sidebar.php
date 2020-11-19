@@ -11,7 +11,7 @@
              </a>
          </li>
          <li>
-             <a href="./mainMenu.html">
+             <a href="<?php echo URL_ROOT; ?>/home">
                  <i class="fa fa-2x"><img src="<?php echo URL_ROOT; ?>/img/home.svg" width="30px" height="30px" alt="" srcset=""></i>
                  <span class="nav-text">
                      Pagina inicial del sitio
