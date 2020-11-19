@@ -1,6 +1,6 @@
 <?php require APP_ROOT . "/views/partial/header.php"; ?>
 <?php require APP_ROOT . "/views/partial/navbar.php"; ?>
-<?php require APP_ROOT . "/views/partial/sidebarAdministrador.php"; ?>
+<?php require APP_ROOT . "/views/partial/sidebar.php"; ?>
 <!-- Alta de Usuarios -->
 <article class="MainMenu">
     <div class="row">
@@ -10,7 +10,7 @@
     </div>
     <div class="container">
     <?php flash('usuario_edit_mensaje'); ?>
-        <form action="<?php echo URL_ROOT; ?>/user/update" method="post">
+        <form action="<?php echo URL_ROOT; ?>/usuario/update" method="post">
             <div class="form-row">
                 <div class="col-md-6 mb-3">
                     <label for="nombre">Nombre <sup>*</sup></label>

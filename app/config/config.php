@@ -17,12 +17,14 @@ define('DB_CHARSET', 'utf8');
 define('APP_ENV', 'development');
 /**APP_ROOT Ruta Raíz de la Aplicación */
 define('APP_ROOT', dirname(dirname(__FILE__)));
+/**Protocolo del Servidor */
+define('PROTOCOL',(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != 'on') ? 'http://' : 'https://');
 /**URL_ROOT URL Raíz de la Aplicación */
-define('URL_ROOT', 'http://aplicacioneswebtpfinal.test');
+define('URL_ROOT', PROTOCOL.'aplicacioneswebtpfinal.test');
+/**Zona Horaria por Defecto */
+date_default_timezone_set('America/Argentina/Buenos_Aires');
 /**Nombre CSRF TOKEN */
 define('CSRF_TOKEN_NAME', 'csrf_token');
-/**Tiempo de Epiracion CSRF TOKEN */
-define('CSRF_TOKEN_EXPIRE', 300);
 /**SITE_NAME Nombre de la Aplicación */
 define('SITE_NAME', 'Aplicaciones Web UNLZ');
 /**SITE_NAME Version de la Aplicación */

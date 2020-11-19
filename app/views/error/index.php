@@ -1,3 +1,4 @@
+<?php require APP_ROOT . "/views/partial/header.php"; ?>
 <?php require APP_ROOT ."/views/partial/navbar.php"; ?>
 <article class="Errores">
 <div class="container">
@@ -9,7 +10,6 @@
       <h1 class="error">¡Oh, no!</h1>
       <h2 class="error text-justify">Se ha producido un error. Para continuar, vuelva atrás o acceda a otra sección</h2>
       <h3 class="error text-justify"><?php echo (!empty($data['error'])) ? $data['error'] : '' ;?>
-      <a href="#" onclick="window.history.go(-1); return false;"><i class="fas fa-backward"></i> Volver</a>
     </h3>
     </div>
     <div class="col-2">
@@ -25,3 +25,4 @@
   </div>
 </div>
 </article>
+<?php require APP_ROOT . "/views/partial/footer.php"; ?>

@@ -1,5 +1,18 @@
+<!-- JS Datatables -->
+<script src="<?php echo URL_ROOT; ?>/dataTables/dataTables/js/jquery.dataTables.js"></script>
+<script src="<?php echo URL_ROOT; ?>/dataTables/dataTables/js/dataTables.bootstrap4.js"></script>
+<script src="<?php echo URL_ROOT; ?>/dataTables/buttons/js/dataTables.buttons.js"></script>
+<script src="<?php echo URL_ROOT; ?>/dataTables/buttons/js/buttons.bootstrap4.js"></script>
+<script src="<?php echo URL_ROOT; ?>/dataTables/JSZip/jszip.js"></script>
+<script src="<?php echo URL_ROOT; ?>/dataTables/pdfMake/pdfmake.js"></script>
+<script src="<?php echo URL_ROOT; ?>/dataTables/pdfMake/vfs_fonts.js"></script>
+<script src="<?php echo URL_ROOT; ?>/dataTables/buttons/js/buttons.html5.js"></script>
+<script src="<?php echo URL_ROOT; ?>/dataTables/buttons/js/buttons.colVis.js"></script>
+<script src="<?php echo URL_ROOT; ?>/dataTables/buttons/js/buttons.print.js"></script>
+<script src="<?php echo URL_ROOT; ?>/dataTables/responsive/js/dataTables.responsive.js"></script>
+<script src="<?php echo URL_ROOT; ?>/dataTables/responsive/js/responsive.bootstrap4.js"></script>
 <script>
-    let tablaUsuarios = $('#tablaUsuarios').DataTable({
+    var tablaUsuarios = $('#tablaUsuarios').DataTable({
         'language': {
             'url': '<?php echo URL_ROOT; ?>/dataTables/Spanish.json'
         },
@@ -11,23 +24,12 @@
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
         buttons: [{
-                //Botón para Agregar Usuario
-                action: function(e, dt, button, config) {
-                    $(location).attr('href', '<?php echo URL_ROOT; ?>/usuario/create');
-                },
-                className: 'btn btn-info',
-                text: '<i class="fas fa-user-plus"></i>'
-            },
-            {
                 //Botón para Excel
                 extend: 'excelHtml5',
                 title: 'Excel',
                 filename: 'ExportExcel',
                 className: 'btn btn-success',
-                text: '<i class="fas fa-file-excel"></i>',
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5]
-                }
+                text: '<i class="fas fa-file-excel"></i>'
             },
             {
                 //Botón para CSV
@@ -35,43 +37,33 @@
                 title: 'CSV',
                 filename: 'ExportCSV',
                 className: 'btn btn-warning',
-                text: '<i class="fas fa-file-csv"></i>',
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5]
-                }
+                text: '<i class="fas fa-file-csv"></i>'
             },
             {
                 //Botón para PDF
                 extend: 'pdfHtml5',
+                orientation: 'landscape',
+                pageSize: 'LEGAL',
                 title: 'PDF',
                 filename: 'ExportPDF',
                 className: 'btn btn-danger',
-                text: '<i class="far fa-file-pdf"></i>',
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5]
-                }
-
+                text: '<i class="far fa-file-pdf"></i>'
             },
             {
                 //Botón para Copiar a Portapapeles
                 extend: 'copyHtml5',
                 title: 'Portapapeles',
                 className: 'btn btn-secondary',
-                text: '<i class="fas fa-copy"></i>',
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5]
-                }
+                text: '<i class="fas fa-copy"></i>'
             },
             {
                 //Botón para Imprimir
                 extend: 'print',
-                //orientation: 'landscape',
+                orientation: 'landscape',
+                pageSize: 'LEGAL',
                 title: 'Imprimir',
                 className: 'btn btn-dark',
-                text: '<i class="fas fa-print"></i>',
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5]
-                }
+                text: '<i class="fas fa-print"></i>'
             },
             {
                 //Botón para Ocultar Columnas
@@ -86,15 +78,16 @@
         ], //Orden por DEFAULT Columna Apellido
         'processing': true,
         'serverSide': true,
-        'responsive': true,
-        'serverMethod': 'GET',
+        'serverMethod': 'POST',
         'ajax': {
             'url': '<?php echo URL_ROOT; ?>/usuario/getUsuariosDataTables',
+            'data': {
+                '<?php echo CSRF_TOKEN_NAME ?>': '<?php echo getCsrf(); ?>',
+            },
         },
         'columns': [{
                 data: 'key',
                 'orderable': false,
-                'responsivePriority': 1001,
             },
             {
                 data: 'apellido',
@@ -107,7 +100,6 @@
             {
                 data: 'dni',
                 'orderable': true,
-                'responsivePriority': 1,
             },
             {
                 data: 'email',
@@ -118,9 +110,8 @@
                 'orderable': true,
             },
             {
-                defaultContent: "<button type='button' class='btn btn-success btn-xs edit'> <i class='fas fa-user-edit'></i></button> <button type='button' class='btn btn-danger btn-xs destroy'> <i class='fas fa-trash-alt'></i></button>",
+                defaultContent: "<button name='edit' id='edit' type='button' class='btn btn-success btn-xs '> <i class='fas fa-user-edit'></i></button> <button name='destroy' id='destroy' type='button' class='btn btn-danger btn-xs '> <i class='fas fa-trash-alt'></i></button>",
                 'orderable': false,
-                'responsivePriority': 2,
             },
         ],
         'columnDefs': [{
@@ -132,15 +123,14 @@
 
     });
     /**Acciones Botón Editar */
-    $('#tablaUsuarios tbody').on('click', 'button.edit', function() {
-        let data = tablaUsuarios.row($(this).parents('tr')).data();
+    $('#tablaUsuarios tbody').on('click', '#edit', function() {
+        var data = tablaUsuarios.row($(this).parents("tr")).data();
         /**Redirigimos al formulario de Edición con el id */
-        $(location).attr('href', '<?php echo URL_ROOT; ?>/usuario/edit/' + data.id);
-
+        $(location).attr('href','<?php echo URL_ROOT; ?>/usuario/edit/' + data.id);
     });
     /**Acciones Botón Eliminar */
-    $('#tablaUsuarios tbody').on('click', 'button.destroy', function() {
-        let data = tablaUsuarios.row($(this).parents("tr")).data();
+    $('#tablaUsuarios tbody').on('click', '#destroy', function() {
+        var data = tablaUsuarios.row($(this).parents("tr")).data();
         console.log(data);
         /**Asignamos el id al Hidden id */
         $('#modalEliminar #id').val(data.id);

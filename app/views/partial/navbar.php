@@ -17,15 +17,15 @@
           <img src="<?php echo URL_ROOT; ?>/img/user.svg" width="30px" height="30px">
         </button>
         <div class="dropdown-menu" aria-labelledby="User">
-          <a class="dropdown-item" href="#"><img src="<?php echo URL_ROOT; ?>/img/user.svg" width="20px" height="20px"> Usuario</a>
+          <a class="dropdown-item" href="#"><img src="<?php echo URL_ROOT; ?>/img/user.svg" width="20px" height="20px"> <?php echo isset($_SESSION['usuario_nombre']) ? $_SESSION['usuario_nombre'] : '' ; ?></a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#"><img src="<?php echo URL_ROOT; ?>/img/speedometer.svg" width="20px" height="20px"> Tablero</a>
+<!--           <a class="dropdown-item" href="#"><img src="<?php echo URL_ROOT; ?>/img/speedometer.svg" width="20px" height="20px"> Tablero</a>
           <a class="dropdown-item" href="#"><img src="<?php echo URL_ROOT; ?>/img/Perfil.svg" width="20px" height="20px"> Perfil</a>
           <a class="dropdown-item" href="#"> <img src="<?php echo URL_ROOT; ?>/img/calendar.svg" width="20px" height="20px"> Calificaciones</a>
           <a class="dropdown-item" href="#"> <img src="<?php echo URL_ROOT; ?>/img/letter.svg" width="20px" height="20px"> Mensajes</a>
           <a class="dropdown-item" href="#"> <img src="<?php echo URL_ROOT; ?>/img/Herramienta.svg" width="20px" height="20px"> Preferencias</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="inicioSesion.php"> <img src="<?php echo URL_ROOT; ?>/img/SignOut.svg" width="20px" height="20px"> Salir</a>
+          <div class="dropdown-divider"></div> -->
+          <a class="dropdown-item" href="<?php echo URL_ROOT.'/usuario/logout'; ?>"> <img src="<?php echo URL_ROOT; ?>/img/SignOut.svg" width="20px" height="20px"> Salir</a>
         </div>
       </div>
     </form>

@@ -1,6 +1,6 @@
 <?php require APP_ROOT . "/views/partial/header.php"; ?>
 <?php require APP_ROOT . "/views/partial/navbar.php"; ?>
-<?php require APP_ROOT . "/views/partial/sidebarAdministrador.php"; ?>
+<?php require APP_ROOT . "/views/partial/sidebar.php"; ?>
 <!-- Alta de Usuarios -->
 <article class="MainMenu">
     <div class="row">
@@ -10,7 +10,7 @@
     </div>
     <div class="container">
     <?php flash('usuario_create_mensaje'); ?>
-        <form action="<?php echo URL_ROOT; ?>/user/store" method="post">
+        <form action="<?php echo URL_ROOT; ?>/usuario/store" method="post">
             <div class="form-row">
                 <div class="col-md-6 mb-3">
                     <label for="nombre">Nombre <sup>*</sup></label>
@@ -64,8 +64,13 @@
                 </div>
             </div>
             <?php generateInputCsrf(); ?>
-            <div class="form-row">
-                <button type="submit" class="btn btn-success btn-lg">Dar de alta</button>
+            <div class="form-row text-md-center">
+            <div class="col-md-6 mb-3">
+                <button type="submit" class="btn btn-success btn-lg">Dar de Alta</button>
+            </div>
+            <div class="col-md-6 mb-3">
+                <a href="<?php echo URL_ROOT; ?>/usuario" class="btn btn-danger btn-lg">Cancelar</a>
+            </div>
             </div>
         </form>
     </div>

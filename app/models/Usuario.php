@@ -76,33 +76,6 @@ class Usuario
             return false;
         }
     }
-
-    public function login($email, $password)
-    {
-        $this->db->query('SELECT * FROM users WHERE email = :email');
-        $this->db->bind(':email', $email);
-        $row = $this->db->single();
-
-        $hashed_password = $row->password;
-        if (password_verify($password, $hashed_password)) {
-            return $row;
-        } else {
-            return false;
-        }
-    }
-
-    public function checkPassword($email, $password)
-    {
-        $this->db->query('SELECT * FROM users WHERE email = :email');
-        $this->db->bind(':email', $email);
-        $row = $this->db->single();
-        $hashed_password = $row->password;
-        if (password_verify($password, $hashed_password)) {
-            return $row;
-        } else {
-            return false;
-        }
-    }
     /**
      * Verifica si existe el EMAIL en la Tabla Usuarios,
      * Si existe retorna Verdadero sino Falso
@@ -161,17 +134,17 @@ class Usuario
         $this->db->bind(':id', $id);
         return $this->db->single();
     }
-
-    public function updatePassword($data)
+    /**Busca un usuario por Email y nos devuelve la información
+     * del usuario.
+     *
+     * @param [estring] $emila Email a Buscar
+     * @return [objet] Filas como Objeto
+     */
+    public function getUsuarioByEmail($email)
     {
-        $this->db->query('UPDATE users SET password = :password WHERE email = :email');
-        $this->db->bind(':password', $data['password']);
-        $this->db->bind(':email', $data['email']);
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
+        $this->db->query('SELECT * FROM usuarios WHERE email = :email');
+        $this->db->bind(':email', $email);
+        return $this->db->single();
     }
     /**Se Obtiene todos los Usuarios Disponibles
      *

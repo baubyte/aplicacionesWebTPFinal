@@ -63,10 +63,23 @@ function flash($name = null, $message = null, $class = 'success')
  */
 function isLoggedIn()
 {
-    if (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) {
+    if ($_SESSION['usuario_activo']) {
         return true;
     } else {
-        return false;
+        redirect('usuario/login');
+    }
+}
+/**
+ * Comprueba si el Usuario es Administrador
+ *
+ * @return boolean
+ */
+function isAdmin()
+{
+    if ($_SESSION['usuario_rol'] == 1) {
+        return true;
+    } else {
+        redirect('home');
     }
 }
 /**
@@ -88,7 +101,6 @@ function generateCsrf()
     if (empty($_POST)) {
         $csrfToken = bin2hex(random_bytes(16));
         $_SESSION[CSRF_TOKEN_NAME] = $csrfToken;
-        $_SESSION["csrf_token_expire"] = time() + intval(CSRF_TOKEN_EXPIRE);
         return $csrfToken;
     }
 }
@@ -125,14 +137,12 @@ function verifyCsrf()
     $request = $_SERVER["REQUEST_METHOD"];
     $methods = ["POST" => $_POST];
     $verify = false;
-    if(!empty($methods[$request])){
+    if (!empty($methods[$request])) {
         if (!isset($methods[$request][CSRF_TOKEN_NAME])) {
             $verify = true;
         }
-        if ($_SESSION["csrf_token_expire"] < time()) {
-            if ($methods[$request][CSRF_TOKEN_NAME] !== $_SESSION[CSRF_TOKEN_NAME]) {
-                $verify = true;
-            }
+        if ($methods[$request][CSRF_TOKEN_NAME] !== $_SESSION[CSRF_TOKEN_NAME]) {
+            $verify = true;
         }
     }
     return $verify;

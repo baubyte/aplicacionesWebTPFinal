@@ -22,7 +22,7 @@
         <h1>Aplicaciones Web</h1><br>
     </div>
     <div class="Formulario">
-        <form action="<?php echo URL_ROOT; ?>/user/startsession" method="post">
+        <form action="<?php echo URL_ROOT; ?>/usuario/startsession" method="post">
             <div class="form-group">
                 <h3>Acceso a la plataforma</h3>
             </div>
@@ -33,7 +33,8 @@
                         <img src="<?php echo URL_ROOT; ?>/img/letter.svg" width="25px" height="25px">
                     </span>
                 </div>
-                <input type="text" class="form-control" placeholder="Usuario" aria-label="Username" aria-describedby="basic-addon1" name="usuario">
+                <input type="email" class="form-control <?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>" placeholder="email" aria-label="Username" aria-describedby="basic-addon1" name="email" value="<?php echo (!empty($data['email'])) ? $data['email'] : ''; ?>" required>
+                <span class="invalid-feedback"><?php echo (!empty($data['email_err'])) ?  $data['email_err'] : '' ; ?></span>
             </div>
             <p>Contraseña</p>
             <div class="input-group mb-3">
@@ -42,13 +43,14 @@
                         <img src="<?php echo URL_ROOT; ?>/img/candado.svg" width="25px" height="25px">
                     </span>
                 </div>
-                <input type="text" class="form-control" placeholder="Contraseña" aria-label="Username" aria-describedby="basic-addon1" name="clave">
+                <input type="password" class="form-control <?php echo (!empty($data['clave_err'])) ? 'is-invalid' : ''; ?>" placeholder="Contraseña" aria-label="Username" aria-describedby="basic-addon1" name="clave" value="<?php echo (!empty($data['clave'])) ? $data['clave'] : ''; ?>" required>
+                <span class="invalid-feedback"><?php echo (!empty($data['clave_err'])) ?  $data['clave_err'] : '' ; ?></span>
             </div>
             <?php generateInputCsrf(); ?>
             <button type="submit" class="btn btn-primary">Ingresar</button>
-            <div class="form-group">
+<!--             <div class="form-group">
                 <label id="olvidar" for="inputOlvidar">¿Olvidó su usuario o Contraseña?</label><br>
-            </div>
+            </div> -->
         </form>
     </div>
 <?php require APP_ROOT . "/views/partial/footer.php"; ?>

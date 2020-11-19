@@ -6,7 +6,8 @@ class UsuarioController extends Controller
     {
         /**Peticiones por POST necesario el csrf_token */
         if (verifyCsrf()) {
-            redirect('error/show/csrf');
+            flash('usuario_index_mensaje', 'Fallo la Verificación del Token.','danger');
+            redirect('usuario/index');
         }
         /**Instancia del Modelo Usuario*/
         $this->usuarioModel = $this->model('Usuario');
@@ -20,6 +21,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
+        isAdmin();
         $data = [
             'titulo' => 'Administrador',
             'dataTables' => 'Usuario'
@@ -33,6 +35,7 @@ class UsuarioController extends Controller
      */
     public function create()
     {
+        isAdmin();
         /**Obtenemos Todos los Roles */
         $roles = $this->rolModel->getRoles();
         $data = [
@@ -48,6 +51,7 @@ class UsuarioController extends Controller
      */
     public function store()
     {
+        isAdmin();
         /**Obtenemos Todos los Roles */
         $roles = $this->rolModel->getRoles();
         $data = [
@@ -88,6 +92,7 @@ class UsuarioController extends Controller
      */
     public function edit($id)
     {
+        isAdmin();
         /**Obtenemos Todos los Roles */
         $roles = $this->rolModel->getRoles();
         /**Obtenemos Todos los Datos del Usuario */
@@ -112,6 +117,7 @@ class UsuarioController extends Controller
      */
     public function update()
     {
+        isAdmin();
         /**Obtenemos Todos los Roles */
         $roles = $this->rolModel->getRoles();
         $data = [
@@ -143,6 +149,7 @@ class UsuarioController extends Controller
     }
     public function destroy()
     {
+        isAdmin();
         /**Obtenemos el ID */
         $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
         /**Obtenemos Todos los Datos del Usuario
@@ -168,14 +175,14 @@ class UsuarioController extends Controller
         /**Array para el response */
         $dataResponse = [];
         /**Recibimos lo Valores de DataTable */
-        $columnIndex = $_POST['order'][0]['column']; // Índice de columna
-        $draw = $_POST['draw'];
+        $columnIndex = $_GET['order'][0]['column']; // Índice de columna
+        $draw = $_GET['draw'];
         $data = [
-            'row' => $_POST['start'], //Desde que registro para registro por pagina
-            'rowPerPage' => $_POST['length'], //Hasta que registro para Registros por Pagina
-            'columnName' => $_POST['columns'][$columnIndex]['data'], // Nombre de la Columna
-            'columnSortOrder' => $_POST['order'][0]['dir'], // Orden ASC o DESC
-            'searchValue' => filter_var($_POST['search']['value'], FILTER_SANITIZE_STRING) // Valor Buscado
+            'row' => $_GET['start'], //Desde que registro para registro por pagina
+            'rowPerPage' => $_GET['length'], //Hasta que registro para Registros por Pagina
+            'columnName' => $_GET['columns'][$columnIndex]['data'], // Nombre de la Columna
+            'columnSortOrder' => $_GET['order'][0]['dir'], // Orden ASC o DESC
+            'searchValue' => filter_var($_GET['search']['value'], FILTER_SANITIZE_STRING) // Valor Buscado
         ];
         /** Número total de registros sin filtrar */
         $totalRegistros = $this->usuarioModel->countUsuarios();
@@ -205,25 +212,77 @@ class UsuarioController extends Controller
         echo json_encode($response);
     }
     /**
-     * FALTA login
+     * FALTA Mejorar
      *
      * @return void
      */
     public function login()
     {
+        if (isset($_SESSION['usuario_activo']) && $_SESSION['usuario_activo']) {
+            redirect('home');
+        }
         $data = [
             'titulo' => 'Inicio de Sesión',
         ];
         return $this->view('usuario/login', $data);
     }
     /**
-     * FALTA INICIAR SESIÓN
+     * Valida el Usuario y Crea las Sesiones y
+     * redirige al vista Principal
      *
      * @return void
      */
     public function startsession()
     {
-        # code...
+        $data = [
+            'titulo' => 'Inicio de Sesión',
+        ];
+        /**Agregamos los Datos de la Validación */
+        $data += $this->validateStartSession();
+        /**Si no hubo errores hacemos el insert
+         * caso contrario Retornamos la Vista con los errores.
+         */
+        if (!$data['error']) {
+            /**Comprobamos que no hubo errores en el Insert y hacemos un redirect a 
+             * usuarios/index con un mensaje
+             * si hubo errores devolvemos la vista con un mensaje de error y
+             * con todos los datos ingresados.
+             */
+            $usuario = $this->usuarioModel->getUsuarioByEmail($data['email']);
+            if (password_verify($data['clave'], $usuario->password)) {
+                $_SESSION['usuario_id'] = $usuario->id;
+                $_SESSION['usuario_email'] = $usuario->email;
+                $_SESSION['usuario_nombre'] = $usuario->nombre;
+                $_SESSION['usuario_rol'] = $usuario->rol_id;
+                $_SESSION['usuario_activo'] = TRUE;
+                redirect('home/index');
+            } else {
+                $data['email_err'] = 'El Email o Contraseña son Inválidos.';
+                $this->view('usuario/login', $data);
+            }
+        } else {
+            $this->view('usuario/login', $data);
+        }
+    }
+    /**
+     * Limpia las Variables de Sesion y
+     * redirige al Login
+     *
+     * @return void
+     */
+    public function logout()
+    {
+        $data = [
+            'titulo' => 'Inicio de Sesión',
+        ];
+        unset($_SESSION['usuario_id']);
+        unset($_SESSION['usuario_email']);
+        unset($_SESSION['usuario_nombre']);
+        unset($_SESSION['usuario_rol']);
+        unset($_SESSION['usuario_activo']);
+        unset($_SESSION[CSRF_TOKEN_NAME]);
+        session_destroy();
+        redirect('usuario/login', $data);
     }
     /**Valida todos los Datos de los Usuarios y los
      * Sanitiza, comprueba que no existan DNI duplicados y 
@@ -390,6 +449,41 @@ class UsuarioController extends Controller
             $data['error'] = true;
         } else if ($data['email'] != $data['remail']) {
             $data['remail_err'] = 'Los Emails no Coinciden.';
+            $data['error'] = true;
+        }
+        return $data;
+    }
+    /**Valida todos los Datos de los Usuarios y los
+     * Sanitiza, comprueba que el emails se encuentre registrado
+     * 
+     *
+     * @return [array] $data Un array con todos los datos.
+     */
+    public function validateStartSession()
+    {
+        /**Recepción de Campos */
+        $data = [
+            'email' => strtolower(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL)),
+            'clave' => filter_input(INPUT_POST, 'clave', FILTER_SANITIZE_STRING),
+            'email_err' => '',
+            'clave_err' => '',
+            'error' => false
+        ];
+        /**Validaciones de Todos los Campos con las Distintas Reglas*/
+        //Email
+        if (empty($data['email']) && filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $data['email_err'] = 'El Email es un Campo Obligatorio y debe Ser Válido.';
+            $data['error'] = true;
+        } else if (!$this->usuarioModel->existsUsuarioByEmail($data['email'])) {
+            $data['email_err'] = 'El Email o Contraseña son Inválidos.';
+            $data['error'] = true;
+        }
+        //Contraseña
+        if (empty($data['clave'])) {
+            $data['clave_err'] = 'La Contraseña es un Campo Obligatorio.';
+            $data['error'] = true;
+        } else if (strlen($data['clave']) < 6) {
+            $data['clave_err'] = 'La Contraseña debe Contener al Menos 6 Caracteres.';
             $data['error'] = true;
         }
         return $data;

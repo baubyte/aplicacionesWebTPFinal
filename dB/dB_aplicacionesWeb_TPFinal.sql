@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 17-11-2020 a las 02:12:52
+-- Tiempo de generación: 19-11-2020 a las 03:30:54
 -- Versión del servidor: 5.7.24
 -- Versión de PHP: 7.2.19
 
@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `aplicacionesweb_tpfinal`
 --
-CREATE DATABASE IF NOT EXISTS `aplicacionesweb_tpfinal` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+CREATE DATABASE IF NOT EXISTS `aplicacionesweb_tpfinal` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `aplicacionesweb_tpfinal`;
 
 -- --------------------------------------------------------
@@ -182,7 +182,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `rol_id`, `email`, `password`, `nombre`, `apellido`, `dni`, `token`, `created_at`, `updated_at`, `deleted`) VALUES
-(1, 1, 'paredbaez.martin@gmail.com', '$2y$10$zqiMDiDosRwYW7WPz0zwheSpdN8OTxfj0DR29l4qNgcXkMzB.E9AC', 'Martin Jose', 'Pared Baez', '12345679', NULL, '2020-11-15 00:19:07', '2020-11-17 02:11:13', 0),
+(1, 1, 'admin@admin.com', '$2y$10$zqiMDiDosRwYW7WPz0zwheSpdN8OTxfj0DR29l4qNgcXkMzB.E9AC', 'Administrador', 'Administrador', '12345679', NULL, '2020-11-15 00:19:07', '2020-11-19 03:24:01', 0),
 (33, 2, 'pared.martin@gmail.com', '$2y$10$CYPKOeM0V/DuoVOhnPfJNODIW6Ed8O5sg0NJ/HyHBPNsV9SwzHDne', 'Martin', 'Pared', '12345678', NULL, '2020-11-15 04:34:54', '2020-11-17 00:40:01', 1),
 (34, 1, 'garcia81@email.com', NULL, 'María', 'García', '53052515', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
 (35, 2, 'sanz67@mail.com', NULL, 'Manuel', 'Sanz', '86391305', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
@@ -199,8 +199,8 @@ INSERT INTO `usuarios` (`id`, `rol_id`, `email`, `password`, `nombre`, `apellido
 (46, 1, 'ale.gil@mail.com', NULL, 'Alejandro', 'Gil', '10773315', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
 (47, 2, 'p.olmedo@correo.com', NULL, 'Pablo', 'Olmedo', '08356236', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
 (48, 1, 'f.vargas@mail.es', NULL, 'Francisco', 'Vargas', '93139420', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
-(49, 1, 'cruz16@correo.com', NULL, 'Jesús', 'Cruz', '98546899', NULL, '2020-11-15 04:35:12', '2020-11-16 01:24:08', 0),
-(50, 3, 'enriquez20@email.net', NULL, 'Lucia', 'Enríquez', '03680026', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(49, 1, 'cruz16@correo.com', NULL, 'Jesús', 'Cruz', '98546899', NULL, '2020-11-15 04:35:12', '2020-11-19 02:29:14', 0),
+(50, 3, 'enriquez20@email.net', NULL, 'Lucia', 'Enriquez', '03680026', NULL, '2020-11-15 04:35:12', '2020-11-19 02:50:18', 0),
 (51, 2, 'josefa.cuesta@correo.com', NULL, 'Josefa', 'Cuesta', '75838470', NULL, '2020-11-15 04:35:12', '2020-11-16 01:24:13', 0),
 (52, 3, 'car.pelayo@mail.net', NULL, 'Carmen', 'Pelayo', '13554849', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
 (53, 2, 'c.rodriguez@correo.net', NULL, 'Concepción', 'Rodríguez', '37164936', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),

@@ -1,6 +1,6 @@
 <?php require APP_ROOT . "/views/partial/header.php"; ?>
 <?php require APP_ROOT . "/views/partial/navbar.php"; ?>
-<?php require APP_ROOT . "/views/partial/sidebarAdministrador.php"; ?>
+<?php require APP_ROOT . "/views/partial/sidebar.php"; ?>
 <article>
   <div class="container-fluid">
     <?php flash('usuario_index_mensaje'); ?>
