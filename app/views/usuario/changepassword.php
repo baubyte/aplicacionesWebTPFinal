@@ -1,7 +1,7 @@
 <?php require APP_ROOT . "/views/partial/header.php"; ?>
 <?php require APP_ROOT . "/views/partial/navbar.php"; ?>
 <?php require APP_ROOT . "/views/partial/sidebar.php"; ?>
-<!-- Alta de Usuarios -->
+<!-- Cambiar Contraseña -->
 <article class="MainMenu">
     <div class="row">
         <div class="col-12 text-center">
@@ -42,5 +42,5 @@
         </form>
     </div>
 </article>
-<!-- Alta de Usuarios -->
+<!-- Cambiar Contraseña -->
 <?php require APP_ROOT . "/views/partial/footer.php"; ?>

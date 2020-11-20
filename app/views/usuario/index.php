@@ -2,6 +2,7 @@
 <?php require APP_ROOT . "/views/partial/navbar.php"; ?>
 <?php require APP_ROOT . "/views/partial/sidebar.php"; ?>
 <article>
+<!-- Listado de Usuarios -->
   <div class="container-fluid">
     <?php flash('usuario_index_mensaje'); ?>
     <div class="row">
@@ -25,6 +26,7 @@
       <tbody>
       </tbody>
     </table>
+<!--/Listado de Usuarios -->
     <!-- Modal Eliminar -->
     <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="modalEliminarTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -49,7 +51,7 @@
       </div>
     </div>
   </div>
-  <!-- Modal Eliminar -->
+  <!--/Modal Eliminar -->
   </div>
 </article>
 <?php require APP_ROOT . "/views/partial/footer.php"; ?>

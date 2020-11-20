@@ -75,5 +75,5 @@
         </form>
     </div>
 </article>
-<!-- Alta de Usuarios -->
+<!--/Alta de Usuarios -->
 <?php require APP_ROOT . "/views/partial/footer.php"; ?>
