@@ -5,7 +5,7 @@
 <article class="MainMenu">
     <div class="row">
         <div class="col-12 text-center">
-            <h4>Asignado Materias a: </h4>
+            <h4>En ésta sección vas Asignar Materias a: Nombre Apellido DNI</h4>
         </div>
     </div>
     <div class="container">

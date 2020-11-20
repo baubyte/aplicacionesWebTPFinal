@@ -73,6 +73,11 @@ class UsuarioController extends Controller
              * con todos los datos ingresados.
              */
             if ($this->usuarioModel->store($data)) {
+                /**Comprobamos que Tipo de Usuarios */
+                if ($data['rol'] == 2 || $data['rol'] == 3) {
+                    redirect("usuario/asignarmaterias/{$data['dni']}");
+                    exit();
+                }
                 flash('usuario_index_mensaje', 'El Usuario se dio de Alta Correctamente.');
                 redirect('usuario');
             } else {
@@ -315,7 +320,7 @@ class UsuarioController extends Controller
     {
         isLoggedIn();
         $data = [
-            'titulo' => 'Cambiar Contrseña',
+            'titulo' => 'Cambiar Contraseña',
         ];
         /**Agregamos los Datos de la Validación */
         $data += $this->validateUpdatePassword();
@@ -341,6 +346,14 @@ class UsuarioController extends Controller
             flash('usuario_password_mensaje', 'Surgieron Errores Por Favor Verifica, los Datos Ingresados.', 'warning');
             $this->view('usuario/changepassword', $data);
         }
+    }
+    public function asignarmaterias($dni)
+    {
+        isAdmin();
+        $data =         $data = [
+            'titulo' => 'Asignar Materias',
+        ];
+        return $this->view('usuario/asignarmaterias',$data);
     }
     /**Valida todos los Datos de los Usuarios y los
      * Sanitiza, comprueba que no existan DNI duplicados y 
