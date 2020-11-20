@@ -299,7 +299,7 @@ class UsuarioController extends Controller
         redirect('usuario/login', $data);
     }
     /**
-     * Muestra la vista con el Fromuario de Login
+     * Muestra la vista con el Formulario de Login
      *
      * @return void
      */
@@ -310,6 +310,37 @@ class UsuarioController extends Controller
             'titulo' => 'Cambiar Contrseña',
         ];
         return $this->view('usuario/changepassword', $data);
+    }
+    public function updatepassword()
+    {
+        isLoggedIn();
+        $data = [
+            'titulo' => 'Cambiar Contrseña',
+        ];
+        /**Agregamos los Datos de la Validación */
+        $data += $this->validateUpdatePassword();
+        /**Si no hubo errores hacemos el insert
+         * caso contrario Retornamos la Vista con los errores.
+         */
+        if (!$data['error']) {
+            //Hash Contraseña
+            $data['clave'] = password_hash($data['clave'], PASSWORD_DEFAULT);
+            /**Comprobamos que no hubo errores en el Insert y hacemos un redirect a 
+             * usuarios/index con un mensaje
+             * si hubo errores devolvemos la vista con un mensaje de error y
+             * con todos los datos ingresados.
+             */
+            if ($this->usuarioModel->updatePassword($data)) {
+                flash('usuario_password_mensaje', 'La Contraseña Fue Modificada Correctamente.');
+                redirect('usuario/changepassword');
+            } else {
+                flash('usuario_password_mensaje', 'Ocurrió un Error al Intentar Modificar la Contraseña.', 'danger');
+                $this->view('usuario/changepassword', $data);
+            }
+        } else {
+            flash('usuario_password_mensaje', 'Surgieron Errores Por Favor Verifica, los Datos Ingresados.', 'warning');
+            $this->view('usuario/changepassword', $data);
+        }
     }
     /**Valida todos los Datos de los Usuarios y los
      * Sanitiza, comprueba que no existan DNI duplicados y 
@@ -516,8 +547,7 @@ class UsuarioController extends Controller
         return $data;
     }
     /**Valida todos los Datos de los Usuarios y los
-     * Sanitiza, comprueba que no existan DNI duplicados y 
-     * también los emails, al ser Modificados.
+     * Sanitiza, comprueba las contraseñas.
      *
      * @return [array] $data Un array con todos los datos.
      */
@@ -527,29 +557,25 @@ class UsuarioController extends Controller
         $data = [
             'id' => filter_var($_SESSION['usuario_id'], FILTER_SANITIZE_NUMBER_INT),
             'email' => strtolower(filter_var($_SESSION['usuario_email'], FILTER_SANITIZE_EMAIL)),
-            'nombre_err' => '',
-            'apellido_err' => '',
-            'dni_err' => '',
-            'rol_err' => '',
-            'email_err' => '',
-            'remail_err' => '',
+            'oclave' => filter_input(INPUT_POST, 'oclave', FILTER_SANITIZE_STRING),
+            'clave' => filter_input(INPUT_POST, 'clave', FILTER_SANITIZE_STRING),
+            'rclave' => filter_input(INPUT_POST, 'rclave', FILTER_SANITIZE_STRING),
             'error' => false
         ];
         /**Validaciones de Todos los Campos con las Distintas Reglas*/
         //Contraseña
         if (empty($data['oclave'])) {
-            $data['clave_err'] = 'La Contraseña Anterior es un Campo Obligatorio.';
+            $data['oclave_err'] = 'La Contraseña Anterior es un Campo Obligatorio.';
             $data['error'] = true;
-        } else if (strlen($data['clave']) < 6) {
-            $data['clave_err'] = 'La Contraseña debe Anterior Contener al Menos 6 Caracteres.';
+        } else if (strlen($data['oclave']) < 6) {
+            $data['oclave_err'] = 'La Contraseña debe Anterior Contener al Menos 6 Caracteres.';
             $data['error'] = true;
-        }else{
+        } else {
             $usuario = $this->usuarioModel->getUsuarioById($data['id']);
-            if (password_verify($data['oclave'], $usuario->password)) {
-                $data['oclave_err'] = 'La Contraseña debe Anterior No Coincide.';
+            if (!password_verify($data['oclave'], $usuario->password)) {
+                $data['oclave_err'] = 'La Contraseña Anterior No Coincide.';
                 $data['error'] = true;
             }
-
         }
         //Contraseña
         if (empty($data['clave'])) {

@@ -59,6 +59,25 @@ class Usuario
             return false;
         }
     }
+    /**Realiza un UPDATE de la Contraseña del Usuario.
+     *
+     * @param [array] $data Datos del Usuario a modificar.
+     * @return [boolean] TRUE si se hizo el UPDATE sino FALSE
+     */
+    public function updatePassword($data)
+    {
+        $this->db->query('UPDATE usuarios 
+                            SET password = :password
+                            WHERE id = :id
+                        ');
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':password', $data['clave']);
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     /**
      * Metodo por el cual se elimina el usuario,
      * la eliminación se realiza de manera logica, cambiando

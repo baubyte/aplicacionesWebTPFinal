@@ -104,7 +104,7 @@ function generateCsrf()
     return $csrfToken;
 }
 /**
- * Comprueba si exite un csrfToken si eciste
+ * Comprueba si existe un csrfToken si existe
  * Retorna el csrfToken caso contrario lo genera
  * Mantener el identificador de "csrf_token" al enviar por ajax.
  *

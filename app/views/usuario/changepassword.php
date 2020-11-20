@@ -13,8 +13,8 @@
         <form action="<?php echo URL_ROOT; ?>/usuario/updatepassword" method="post">
             <div class="form-row">
                 <div class="col-md-6 mb-3">
-                    <label for="clave">Contraseña Anterior <sup>*</sup></label>
-                    <input type="password" class="form-control <?php echo (!empty($data['oclave_err'])) ? 'is-invalid' : ''; ?>" id="clave" name="clave" value="<?php echo (!empty($data['clave'])) ? $data['clave'] : ''; ?>" required>
+                    <label for="oclave">Contraseña Anterior <sup>*</sup></label>
+                    <input type="password" class="form-control <?php echo (!empty($data['oclave_err'])) ? 'is-invalid' : ''; ?>" id="oclave" name="oclave" value="<?php echo (!empty($data['oclave'])) ? $data['oclave'] : ''; ?>" required>
                     <span class="invalid-feedback"><?php echo (!empty($data['oclave_err'])) ?  $data['oclave_err'] : '';  ?></span>
                 </div>
             </div>
