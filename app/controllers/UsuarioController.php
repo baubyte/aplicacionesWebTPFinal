@@ -75,7 +75,7 @@ class UsuarioController extends Controller
             if ($this->usuarioModel->store($data)) {
                 /**Comprobamos que Tipo de Usuarios */
                 if ($data['rol'] == 2 || $data['rol'] == 3) {
-                    redirect("usuario/asignarmaterias/{$data['dni']}");
+                    redirect("materiausuario/create/{$data['dni']}");
                     exit();
                 }
                 flash('usuario_index_mensaje', 'El Usuario se dio de Alta Correctamente.');

@@ -165,6 +165,18 @@ class Usuario
         $this->db->bind(':email', $email);
         return $this->db->single();
     }
+    /**Busca un usuario por ID y nos devuelve la información
+     * del usuario.
+     *
+     * @param [int] $id
+     * @return [objet] Filas como Objeto
+     */
+    public function getUsuarioByDni($dni)
+    {
+        $this->db->query('SELECT * FROM usuarios WHERE dni = :dni');
+        $this->db->bind(':dni', $dni);
+        return $this->db->single();
+    }
     /**Se Obtiene todos los Usuarios Disponibles
      *
      * @return [objet] Filas como Objeto
