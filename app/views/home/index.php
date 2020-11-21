@@ -21,21 +21,21 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                        <img src="/aplicacionesWebTPFinal/public/img/TorneoAjedrez.png" class="d-block w-100" alt="TorneoAjedrez" height="400px" width="400px">
+                        <img src="<?php echo URL_ROOT ?>/img/TorneoAjedrez.png" class="d-block w-100" alt="TorneoAjedrez" height="400px" width="400px">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Convocatoria Toreno de Ajedréz</h5>
                             <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                         </div>
                         </div>
                         <div class="carousel-item">
-                        <img src="./aplicacionesWebTPFinal/public/img/becas.png" class="d-block w-100" alt="Becas" height="400px" width="400px">
+                        <img src="<?php echo URL_ROOT ?>/img/becas.png" class="d-block w-100" alt="Becas" height="400px" width="400px">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Plan de becas</h5>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                         </div>
                         </div>
                         <div class="carousel-item">
-                        <img src="../public/img/EstudiantesBarbijos.jpg" class="d-block w-100" alt="EstudiantesBarbijos" height="400px" width="400px">
+                        <img src="<?php echo URL_ROOT ?>/img/EstudiantesBarbijos.jpg" class="d-block w-100" alt="EstudiantesBarbijos" height="400px" width="400px">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>La nueva normalidad en UNLZ</h5>
                             <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
