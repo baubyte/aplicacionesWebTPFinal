@@ -67,6 +67,7 @@ function isLoggedIn()
         return true;
     } else {
         redirect('usuario/login');
+        exit();
     }
 }
 /**
@@ -80,6 +81,7 @@ function isAdmin()
         return true;
     } else {
         redirect('home');
+        exit();
     }
 }
 /**

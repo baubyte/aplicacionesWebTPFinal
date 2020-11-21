@@ -12,17 +12,23 @@ class MateriaUsuarioController extends Controller
         /**Instancia del Modelo Usuario*/
         $this->usuarioModel = $this->model('Usuario');
         /**Instancia del Modelo Materia Usuario*/
-        $this->materiaUsuarioModel = $this->model('MateriaUsuario');
+        //$this->materiaUsuarioModel = $this->model('MateriaUsuario');
     }
-    public function create($dni)
+    public function create($dni = null)
     {
-        $usuario = $this->usuarioModel->getUsuarioByDni($dni);
+        /**Comprobamos que se Administrador */
         isAdmin();
+        /**Si el Parámetro que Necesitamos es Null lo Redirigimos al Index de Usuario */
+        if (is_null($dni)) {
+            redirect('usuario');
+            exit();
+        }
+        /**Obtenemos los Datos del Usuario */
+        $usuario = $this->usuarioModel->getUsuarioByDni($dni);
         $data =         $data = [
             'titulo' => 'Asignar Materias',
             'usuario' => $usuario,
         ];
-        return $this->view('materiausuario/create',$data);
+        return $this->view('materiausuario/create', $data);
     }
-
 }

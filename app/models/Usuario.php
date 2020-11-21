@@ -156,7 +156,7 @@ class Usuario
     /**Busca un usuario por Email y nos devuelve la información
      * del usuario.
      *
-     * @param [estring] $emila Email a Buscar
+     * @param [string] $email Email a Buscar
      * @return [objet] Filas como Objeto
      */
     public function getUsuarioByEmail($email)

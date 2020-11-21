@@ -10,7 +10,7 @@
     </div>
     <div class="container">
     <?php flash('usuario_edit_mensaje'); 
-    echo date('H:i:s',$_SESSION["csrf_token_expire"]);
+    //echo date('H:i:s',$_SESSION["csrf_token_expire"]);
     ?>
         <form action="<?php echo URL_ROOT; ?>/usuario/update" method="post">
             <div class="form-row">

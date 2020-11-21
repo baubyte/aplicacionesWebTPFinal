@@ -66,7 +66,7 @@ class Core
         $this->params = $url ? array_values($url) : [];
 
         /**
-         * Llamamos al metodo con un array de parámetros.
+         * Llamamos al método con un array de parámetros.
          */
         call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
     }
