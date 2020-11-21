@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <h2>Sección</h2>
+                <!-- <h2>Sección</h2> -->
                 <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -21,21 +21,14 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                        <img src="<?php echo URL_ROOT ?>/img/TorneoAjedrez.png" class="d-block w-100" alt="TorneoAjedrez" height="400px" width="400px">
+                        <img src="<?php echo URL_ROOT ?>/img/TorneoAjedrez.png" class="d-block w-100" alt="TorneoAjedrez" height="50%" width="50%">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Convocatoria Toreno de Ajedréz</h5>
                             <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                         </div>
                         </div>
                         <div class="carousel-item">
-                        <img src="<?php echo URL_ROOT ?>/img/becas.png" class="d-block w-100" alt="Becas" height="400px" width="400px">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Plan de becas</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </div>
-                        </div>
-                        <div class="carousel-item">
-                        <img src="<?php echo URL_ROOT ?>/img/EstudiantesBarbijos.jpg" class="d-block w-100" alt="EstudiantesBarbijos" height="400px" width="400px">
+                        <img src="<?php echo URL_ROOT ?>/img/EstudiantesBarbijos.jpg" class="d-block w-100" alt="EstudiantesBarbijos" height="50%" width="50%">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>La nueva normalidad en UNLZ</h5>
                             <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
@@ -67,9 +60,6 @@
         </div>
     </div>
     <div class="container">
-    <?php 
-echo $_SESSION['usuario_rol'];
-    ?>
 
     </div>
 </article>
