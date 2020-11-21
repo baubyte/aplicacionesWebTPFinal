@@ -11,6 +11,8 @@ class MateriaUsuarioController extends Controller
         }
         /**Instancia del Modelo Usuario*/
         $this->usuarioModel = $this->model('Usuario');
+        /**Instancia del Modelo Materia Usuario*/
+        $this->materiaUsuarioModel = $this->model('MateriaUsuario');
     }
     public function create($dni)
     {
