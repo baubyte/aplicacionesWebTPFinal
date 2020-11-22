@@ -50,22 +50,29 @@
                         <h5 class="mt-0 mb-1">Sorprendete</h5>
                         Escaneá el código QR con tu teléfono y no te pierdas de ninguna noticia en nuestra página oficial.
                     </div>
-                    <img src="<?php echo URL_ROOT ?>/img/QR.png" class="ml-3" alt="..." width="100px" height="150px">
+                    <img src="<?php echo URL_ROOT ?>/img/QR2.png" class="ml-3" alt="..." width="100px" height="130px">
                 </div><hr>
                 <div class="media">
                     <div class="media-body">
                         <h5 class="mt-0 mb-1">UNLZ Derecho</h5>
-                        
+                        Se acelera y agiliza el desarrollo de la carrera gracias a nuevas implementaciones en el sistema, por desarrolladores de la sede de ingenieria de la UNLZ
                     </div>
                     <img src="<?php echo URL_ROOT ?>/img/UNLZderecho.jpg" class="ml-3" alt="..." width="100px" height="120px">
                 </div><hr>
                 <div class="media">
                     <div class="media-body">
                         <h5 class="mt-0 mb-1">¡Atención!</h5>
-                        Se lanza la convocatoria “Universidades Emprendedoras” – Planes Estratégicos de Desarrollo Emprendedor – Etapa II, con el objetivo de desarrollar y fortalecer las capacidades emprendedoras de las universidades.
+                        Se lanza la convocatoria “Universidades Emprendedoras” – Planes Estratégicos de Desarrollo Emprendedor.
                     </div>
                     <img src="<?php echo URL_ROOT ?>/img/logo.jpg" class="ml-3" alt="..." width="100px" height="120px">
                 </div><hr>
+                <div class="media">
+                    <div class="media-body">
+                        <h5 class="mt-0 mb-1">UNLZ Agraria</h5>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
+                    </div>
+                    <img src="<?php echo URL_ROOT ?>/img/UNLZverde.jpg" class="ml-3" alt="..." width="100px" height="120px">
+                </div>
             </p>
             </div>
         </div>
