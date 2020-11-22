@@ -27,7 +27,10 @@ class MateriaUsuarioController extends Controller
         $usuario = $this->usuarioModel->getUsuarioByDni($dni);
         $data =         $data = [
             'titulo' => 'Asignar Materias',
-            'usuario' => $usuario,
+            'id' => $usuario->id,
+            'nombre' => $usuario->nombre,
+            'apellido' => $usuario->apellido,
+            'dni' => $usuario->dni,
         ];
         return $this->view('materiausuario/create', $data);
     }
