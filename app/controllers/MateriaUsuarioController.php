@@ -31,4 +31,11 @@ class MateriaUsuarioController extends Controller
         ];
         return $this->view('materiausuario/create', $data);
     }
+    public function store()
+    {
+        echo $_POST['carrera'].'<br>';
+        foreach ($_POST['materias'] as $materia) {
+            echo $materia.'<br>';
+        }
+    }
 }
