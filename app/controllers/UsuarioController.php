@@ -60,7 +60,7 @@ class UsuarioController extends Controller
             'roles' => $roles
         ];
         /**Agregamos los Datos de la Validación */
-        $data += $this->validateStore();
+        array_push($data, $this->validateStore());
         /**Si no hubo errores hacemos el insert
          * caso contrario Retornamos la Vista con los errores.
          */
@@ -132,7 +132,7 @@ class UsuarioController extends Controller
             'roles' => $roles
         ];
         /**Agregamos los Datos de la Validación */
-        $data += $this->validateUpdate();
+        array_push($data,$this->validateUpdate());
         /**Si no hubo errores hacemos el insert
          * caso contrario Retornamos la Vista con los errores.
          */
@@ -256,7 +256,7 @@ class UsuarioController extends Controller
             'titulo' => 'Inicio de Sesión',
         ];
         /**Agregamos los Datos de la Validación */
-        $data += $this->validateStartSession();
+        array_push($data,$this->validateStartSession());
         /**Si no hubo errores hacemos el insert
          * caso contrario Retornamos la Vista con los errores.
          */
@@ -323,7 +323,7 @@ class UsuarioController extends Controller
             'titulo' => 'Cambiar Contraseña',
         ];
         /**Agregamos los Datos de la Validación */
-        $data += $this->validateUpdatePassword();
+        array_push($data,$this->validateUpdatePassword());
         /**Si no hubo errores hacemos el insert
          * caso contrario Retornamos la Vista con los errores.
          */
