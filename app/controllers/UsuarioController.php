@@ -60,7 +60,7 @@ class UsuarioController extends Controller
             'roles' => $roles
         ];
         /**Agregamos los Datos de la Validación */
-        array_push($data, $this->validateStore());
+        $data +=  $this->validateStore();
         /**Si no hubo errores hacemos el insert
          * caso contrario Retornamos la Vista con los errores.
          */
@@ -112,7 +112,7 @@ class UsuarioController extends Controller
             'dni' => $usuario->dni,
             'rol' => $usuario->rol_id,
             'email' => $usuario->email,
-            'remail' => $usuario->email,
+            'remail' => $usuario->email
         ];
         return $this->view('usuario/edit', $data);
     }
@@ -132,7 +132,7 @@ class UsuarioController extends Controller
             'roles' => $roles
         ];
         /**Agregamos los Datos de la Validación */
-        array_push($data,$this->validateUpdate());
+        $data += $this->validateUpdate();
         /**Si no hubo errores hacemos el insert
          * caso contrario Retornamos la Vista con los errores.
          */
@@ -240,7 +240,7 @@ class UsuarioController extends Controller
             exit;
         }
         $data = [
-            'titulo' => 'Inicio de Sesión',
+            'titulo' => 'Inicio de Sesión'
         ];
         return $this->view('usuario/login', $data);
     }
@@ -253,10 +253,10 @@ class UsuarioController extends Controller
     public function startsession()
     {
         $data = [
-            'titulo' => 'Inicio de Sesión',
+            'titulo' => 'Inicio de Sesión'
         ];
         /**Agregamos los Datos de la Validación */
-        array_push($data,$this->validateStartSession());
+        $data += $this->validateStartSession();
         /**Si no hubo errores hacemos el insert
          * caso contrario Retornamos la Vista con los errores.
          */
@@ -291,7 +291,7 @@ class UsuarioController extends Controller
     public function logout()
     {
         $data = [
-            'titulo' => 'Inicio de Sesión',
+            'titulo' => 'Inicio de Sesión'
         ];
         unset($_SESSION['usuario_id']);
         unset($_SESSION['usuario_email']);
@@ -312,7 +312,7 @@ class UsuarioController extends Controller
     {
         isLoggedIn();
         $data = [
-            'titulo' => 'Cambiar Contrseña',
+            'titulo' => 'Cambiar Contraseña'
         ];
         return $this->view('usuario/changepassword', $data);
     }
@@ -323,7 +323,7 @@ class UsuarioController extends Controller
             'titulo' => 'Cambiar Contraseña',
         ];
         /**Agregamos los Datos de la Validación */
-        array_push($data,$this->validateUpdatePassword());
+        $data += $this->validateUpdatePassword();
         /**Si no hubo errores hacemos el insert
          * caso contrario Retornamos la Vista con los errores.
          */
@@ -346,14 +346,6 @@ class UsuarioController extends Controller
             flash('usuario_password_mensaje', 'Surgieron Errores Por Favor Verifica, los Datos Ingresados.', 'warning');
             $this->view('usuario/changepassword', $data);
         }
-    }
-    public function asignarmaterias($dni)
-    {
-        isAdmin();
-        $data =         $data = [
-            'titulo' => 'Asignar Materias',
-        ];
-        return $this->view('usuario/asignarmaterias',$data);
     }
     /**Valida todos los Datos de los Usuarios y los
      * Sanitiza, comprueba que no existan DNI duplicados y 

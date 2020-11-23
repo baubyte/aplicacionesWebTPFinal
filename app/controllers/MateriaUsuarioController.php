@@ -46,4 +46,8 @@ class MateriaUsuarioController extends Controller
             echo $materia . '<br>';
         }
     }
+    public function getMateriaUsuarioByCarrera($idCarrera)
+    {
+        echo $idCarrera;
+    }
 }
