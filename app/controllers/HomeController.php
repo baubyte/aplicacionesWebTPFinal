@@ -9,7 +9,7 @@ class HomeController extends Controller
       $data = [
          'titulo' => 'Inicio',
       ];
-      $this->view('home/index', $data);
+      return $this->view('home/index', $data);
    }
 
 }

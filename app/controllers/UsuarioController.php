@@ -83,11 +83,11 @@ class UsuarioController extends Controller
             } else {
                 flash('usuario_create_mensaje', 'Ocurrió un Error al Intentar dar de Alta el Usuario.', 'danger');
 
-                $this->view('usuario/create', $data);
+                return $this->view('usuario/create', $data);
             }
         } else {
             flash('usuario_create_mensaje', 'Surgieron Errores Por Favor Verifica, los Datos Ingresados.', 'warning');
-            $this->view('usuario/create', $data);
+            return $this->view('usuario/create', $data);
         }
     }
     /**
@@ -147,11 +147,11 @@ class UsuarioController extends Controller
                 redirect('usuario');
             } else {
                 flash('usuario_edit_mensaje', 'Ocurrió un Error al Intentar Modificar el Usuario.', 'danger');
-                $this->view('usuario/edit', $data);
+                return $this->view('usuario/edit', $data);
             }
         } else {
             flash('usuario_edit_mensaje', 'Surgieron Errores Por Favor Verifica, los Datos Ingresados.', 'warning');
-            $this->view('usuario/edit', $data);
+            return $this->view('usuario/edit', $data);
         }
     }
     public function destroy()
@@ -276,10 +276,10 @@ class UsuarioController extends Controller
                 redirect('home/index');
             } else {
                 $data['email_err'] = 'El Email o Contraseña son Inválidos.';
-                $this->view('usuario/login', $data);
+                return $this->view('usuario/login', $data);
             }
         } else {
-            $this->view('usuario/login', $data);
+            return $this->view('usuario/login', $data);
         }
     }
     /**
@@ -340,11 +340,11 @@ class UsuarioController extends Controller
                 redirect('usuario/changepassword');
             } else {
                 flash('usuario_password_mensaje', 'Ocurrió un Error al Intentar Modificar la Contraseña.', 'danger');
-                $this->view('usuario/changepassword', $data);
+                return $this->view('usuario/changepassword', $data);
             }
         } else {
             flash('usuario_password_mensaje', 'Surgieron Errores Por Favor Verifica, los Datos Ingresados.', 'warning');
-            $this->view('usuario/changepassword', $data);
+            return $this->view('usuario/changepassword', $data);
         }
     }
     /**Valida todos los Datos de los Usuarios y los
