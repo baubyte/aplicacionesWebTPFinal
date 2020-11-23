@@ -13,6 +13,8 @@ class MateriaUsuarioController extends Controller
         $this->usuarioModel = $this->model('Usuario');
         /**Instancia del Modelo Materia Usuario*/
         //$this->materiaUsuarioModel = $this->model('MateriaUsuario');
+        /**Instancia del Modelo Carrera*/
+        $this->carreraModel = $this->model('Carrera');
     }
     public function create($dni = null)
     {
@@ -25,20 +27,23 @@ class MateriaUsuarioController extends Controller
         }
         /**Obtenemos los Datos del Usuario */
         $usuario = $this->usuarioModel->getUsuarioByDni($dni);
+        /**Obtenemos las Carreras */
+        $carreras = $this->carreraModel->getCarreras();
         $data =         $data = [
             'titulo' => 'Asignar Materias',
             'id' => $usuario->id,
             'nombre' => $usuario->nombre,
             'apellido' => $usuario->apellido,
             'dni' => $usuario->dni,
+            'carreras' => $carreras,
         ];
         return $this->view('materiausuario/create', $data);
     }
     public function store()
     {
-        echo $_POST['carrera'].'<br>';
+        echo $_POST['carrera'] . '<br>';
         foreach ($_POST['materias'] as $materia) {
-            echo $materia.'<br>';
+            echo $materia . '<br>';
         }
     }
 }
