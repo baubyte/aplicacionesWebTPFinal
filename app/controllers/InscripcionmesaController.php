@@ -16,7 +16,13 @@ class InscripcionmesaController extends Controller
       /**Instancia del Modelo Inscripciones Finales*/
       $this->inscripcionFinalModel = $this->model('InscripcionMesa');
    }
-
+    /**
+     * Método Principal de la Entidad
+     * Muestra la vista con el Listado de las Mesas
+     * disponibles.
+     * 
+     * @return void
+     */
    public function index()
    {
       /**Comprobamos que sea un Alumno */

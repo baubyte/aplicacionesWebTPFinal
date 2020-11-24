@@ -106,7 +106,7 @@ class Usuario
     public function existsUsuarioByEmail($email, $id = null)
     {
         $filter = (!empty($id)) ? 'AND id <> :id' : '';
-        $this->db->query("SELECT * FROM usuarios WHERE email = :email $filter");
+        $this->db->query("SELECT * FROM usuarios WHERE email = :email AND deleted IS FALSE $filter");
         $this->db->bind(':email', $email);
         if (!empty($filter)) {
             $this->db->bind(':id', $id);
@@ -129,7 +129,7 @@ class Usuario
     public function existsUsuarioByDocumento($dni, $id = null)
     {
         $filter = (!empty($id)) ? 'AND id <> :id' : '';
-        $this->db->query("SELECT * FROM usuarios WHERE dni = :dni $filter");
+        $this->db->query("SELECT * FROM usuarios WHERE dni = :dni AND deleted IS FALSE $filter");
         $this->db->bind(':dni', $dni);
         if (!empty($filter)) {
             $this->db->bind(':id', $id);
@@ -149,7 +149,7 @@ class Usuario
      */
     public function getUsuarioById($id)
     {
-        $this->db->query('SELECT * FROM usuarios WHERE id = :id');
+        $this->db->query('SELECT * FROM usuarios WHERE id = :id AND deleted IS FALSE');
         $this->db->bind(':id', $id);
         return $this->db->single();
     }
@@ -161,7 +161,7 @@ class Usuario
      */
     public function getUsuarioByEmail($email)
     {
-        $this->db->query('SELECT * FROM usuarios WHERE email = :email');
+        $this->db->query('SELECT * FROM usuarios WHERE email = :email AND deleted IS FALSE');
         $this->db->bind(':email', $email);
         return $this->db->single();
     }
@@ -173,7 +173,7 @@ class Usuario
      */
     public function getUsuarioByDni($dni)
     {
-        $this->db->query('SELECT * FROM usuarios WHERE dni = :dni');
+        $this->db->query('SELECT * FROM usuarios WHERE dni = :dni AND deleted IS FALSE');
         $this->db->bind(':dni', $dni);
         return $this->db->single();
     }

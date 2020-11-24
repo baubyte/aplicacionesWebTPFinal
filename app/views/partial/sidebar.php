@@ -18,20 +18,20 @@
                 </span>
             </a>
         </li>
-        <!--          <li>
-             <a href="<?php echo URL_ROOT . '/mesafinal/fff' ?>">
-                 <i class="fa fa-2x"><img src="<?php echo URL_ROOT; ?>/img/copy.svg" width="30px" height="30px" alt="" srcset=""></i>
-                 <span class="nav-text">
-                     Archivos privados
-                 </span>
-             </a>
-         </li> -->
         <?php if ($_SESSION['usuario_rol'] == 3) : ?>
             <li>
                 <a href="<?php echo URL_ROOT . '/inscripcionmesa' ?>">
                     <i class="fa fa-2x"><img src="<?php echo URL_ROOT; ?>/img/calendar.svg" width="30px" height="30px" alt="" srcset=""></i>
                     <span class="nav-text">
                         Inscribirse a Finales
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo URL_ROOT . '/inscripcionmesa/show' ?>">
+                    <i class="fa fa-2x"><img src="<?php echo URL_ROOT; ?>/img/calendar.svg" width="30px" height="30px" alt="" srcset=""></i>
+                    <span class="nav-text">
+                        Mis Inscripciones
                     </span>
                 </a>
             </li>
