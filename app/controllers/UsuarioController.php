@@ -391,6 +391,9 @@ class UsuarioController extends Controller
         } else if (strlen($data['nombre']) < 3) {
             $data['nombre_err'] = 'El Nombre debe Contener al Menos 3 Caracteres.';
             $data['error'] = true;
+        }else if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚäëïöüÄËÏÖÜàèìòùÀÈÌÒÙ\s]+$/",$data['nombre'])){
+            $data['nombre_err'] = 'El Nombre debe Contener solo Letras.';
+            $data['error'] = true;
         }
         //Apellido
         if (empty($data['apellido'])) {
@@ -398,6 +401,9 @@ class UsuarioController extends Controller
             $data['error'] = true;
         } else if (strlen($data['apellido']) < 3) {
             $data['apellido_err'] = 'El Apellido debe Contener al Menos 3 Caracteres.';
+            $data['error'] = true;
+        }else if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚäëïöüÄËÏÖÜàèìòùÀÈÌÒÙ\s]+$/",$data['apellido'])){
+            $data['apellido_err'] = 'El Apellido debe Contener solo Letras.';
             $data['error'] = true;
         }
         //DNI
@@ -482,6 +488,9 @@ class UsuarioController extends Controller
         } else if (strlen($data['nombre']) < 3) {
             $data['nombre_err'] = 'El Nombre debe Contener al Menos 3 Caracteres.';
             $data['error'] = true;
+        }else if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚäëïöüÄËÏÖÜàèìòùÀÈÌÒÙ\s]+$/",$data['nombre'])){
+            $data['nombre_err'] = 'El Nombre debe Contener solo Letras.';
+            $data['error'] = true;
         }
         //Apellido
         if (empty($data['apellido'])) {
@@ -489,6 +498,9 @@ class UsuarioController extends Controller
             $data['error'] = true;
         } else if (strlen($data['apellido']) < 3) {
             $data['apellido_err'] = 'El Apellido debe Contener al Menos 3 Caracteres.';
+            $data['error'] = true;
+        }else if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚäëïöüÄËÏÖÜàèìòùÀÈÌÒÙ\s]+$/",$data['apellido'])){
+            $data['apellido_err'] = 'El Apellido debe Contener solo Letras.';
             $data['error'] = true;
         }
         //DNI
