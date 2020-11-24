@@ -12,15 +12,32 @@ if (isset($data['dataTables'])) {
 ?>
 <script src="<?php echo URL_ROOT; ?>/js/main.js"></script>
 <script>
-    var carrera = 1;
+$('#carrera').on("change", function (e) {
+    let carrera = $('#carrera').val();
+    let usuario = $('#id').val()
     $('#materias').select2({
+        theme: 'bootstrap4',
         ajax: {
-            theme: 'bootstrap4',
-            method: 'GET',
-            url: "<?php echo URL_ROOT?>/materiausuario/getMateriaUsuarioByCarrera/"+carrera,
+            url: "<?php echo URL_ROOT ?>/materiausuario/getMateriasByCarreraNotHasUsuario",
+            type: "get",
             dataType: 'json',
-        }
+            delay: 250,
+            data: function(params) {
+                return {
+                    search: params.term,
+                    carrera_id:carrera,
+                    usuario_id:usuario
+                };
+            },
+            processResults: function(response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        },
     });
+});
 </script>
 </body>
 

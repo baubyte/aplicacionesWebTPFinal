@@ -56,12 +56,17 @@
             <input type="hidden" name="id" value="<?php echo $data['id'] ?>">
             <?php generateInputCsrf(); ?>
             <div class="form-row text-md-center">
-            <div class="col-md-6 mb-3">
+            <div class="col-md-4 mb-3">
                 <button type="submit" class="btn btn-success btn-lg">Guardar Cambios</button>
             </div>
-            <div class="col-md-6 mb-3">
+            <div class="col-md-4 mb-3">
                 <a href="<?php echo URL_ROOT; ?>/usuario" class="btn btn-danger btn-lg">Cancelar</a>
             </div>
+            <?php if ($data['rol'] == 2 || $data['rol'] == 3): ?>
+            <div class="col-md-4 mb-3">
+                <a href="<?php echo URL_ROOT; ?>/materiausuario/asignarmateria/<?php echo $data['dni'] ?>" class="btn btn-info btn-lg">Editar Materias</a>
+            </div>
+            <?php endif; ?>
             </div>
         </form>
     </div>

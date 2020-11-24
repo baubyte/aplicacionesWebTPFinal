@@ -75,7 +75,8 @@ class UsuarioController extends Controller
             if ($this->usuarioModel->store($data)) {
                 /**Comprobamos que Tipo de Usuarios */
                 if ($data['rol'] == 2 || $data['rol'] == 3) {
-                    redirect("materiausuario/create/{$data['dni']}");
+                    flash('materiausuario_asignar_mensaje', 'El Usuario se dio de Alta Correctamente.');
+                    redirect("materiausuario/asignarmateria/{$data['dni']}");
                     exit();
                 }
                 flash('usuario_index_mensaje', 'El Usuario se dio de Alta Correctamente.');
@@ -133,11 +134,11 @@ class UsuarioController extends Controller
         ];
         /**Agregamos los Datos de la Validación */
         $data = array_merge($data,$this->validateUpdate());
-        /**Si no hubo errores hacemos el insert
+        /**Si no hubo errores hacemos el update
          * caso contrario Retornamos la Vista con los errores.
          */
         if (!$data['error']) {
-            /**Comprobamos que no hubo errores en el Insert y hacemos un redirect a 
+            /**Comprobamos que no hubo errores en el update y hacemos un redirect a 
              * usuarios/index con un mensaje
              * si hubo errores devolvemos la vista con un mensaje de error y
              * con todos los datos ingresados.
@@ -183,9 +184,10 @@ class UsuarioController extends Controller
         }
     }
     /**
-     * falta documentar
+     * Se obtiene todos los Usuarios datos de Alta
+     * En Formato JSON para ser Usado en DataTables
      *
-     * @return void
+     * @return json
      */
     public function getUsuariosDataTables()
     {
@@ -229,7 +231,7 @@ class UsuarioController extends Controller
         echo json_encode($response);
     }
     /**
-     * Muestra la vista con el Fromuario de Login
+     * Muestra la vista con el Formulario de Login
      *
      * @return void
      */
