@@ -69,9 +69,14 @@ CREATE TABLE `carreras` (
 --
 
 INSERT INTO `carreras` (`id`, `nombre`, `descripcion`, `tiempo`, `horas`, `created_at`, `updated_at`, `deleted`) VALUES
-(1, 'Carrera Prueba 1', 'Carrera Prueba 1', '5 Cuatrimestres', '1600', '2020-11-22 23:48:07', '2020-11-22 23:48:07', 0),
-(2, 'Carrera Prueba 2', 'Carrera Prueba 2', '5 Cuatrimestres', '1600', '2020-11-22 23:48:24', '2020-11-22 23:48:24', 0),
-(3, 'Carrera Prueba 3', 'Carrera Prueba 3', '5 Cuatrimestres', '1600', '2020-11-22 23:48:48', '2020-11-22 23:48:48', 0);
+(1, 'Tecnicatura en programacion', 'Programacion', '5 Cuatrimestres', '1600', '2020-11-22 23:48:07', '2020-11-22 23:48:07', 0),
+(2, 'Analista de sistemas', 'Analista', '5 Cuatrimestres', '1600', '2020-11-22 23:48:24', '2020-11-22 23:48:24', 0),
+(3, 'Ingenieria en sistemas', 'Ingenieria', '5 Cuatrimestres', '1600', '2020-11-22 23:48:48', '2020-11-22 23:48:48', 0),
+(4, 'Data science', 'Ciencia de datos', '5 Cuatrimestres', '1600', '2020-11-22 23:48:07', '2020-11-22 23:48:07', 0),
+(5, 'Diseño web', 'Diseñador Front End', '5 Cuatrimestres', '1600', '2020-11-22 23:48:07', '2020-11-22 23:48:07', 0),
+(6, 'I.A', 'Inteligencia Artificial', '5 Cuatrimestres', '1600', '2020-11-22 23:48:07', '2020-11-22 23:48:07', 0);
+
+
 
 -- --------------------------------------------------------
 
@@ -110,9 +115,15 @@ CREATE TABLE `materias` (
 --
 
 INSERT INTO `materias` (`id`, `carrera_id`, `aula_id`, `nombre`, `descripcion`, `created_at`, `updated_at`, `deleted`) VALUES
-(1, 1, 1, 'Materia Prueba  1', 'Materia Prueba  1', '2020-11-22 23:51:47', '2020-11-22 23:51:47', 0),
-(2, 2, 2, 'Materia Prueba  2', 'Materia Prueba  2', '2020-11-22 23:52:21', '2020-11-22 23:52:21', 0),
-(3, 1, 3, 'Materia Prueba  3', 'Materia Prueba  3', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0);
+(1, 1, 1, 'Logica y algoritmos', 'Materia Prueba  1', '2020-11-22 23:51:47', '2020-11-22 23:51:47', 0),
+(2, 2, 2, 'Historia de las computadoras', 'Materia Prueba  2', '2020-11-22 23:52:21', '2020-11-22 23:52:21', 0),
+(3, 1, 3, 'Materia Prueba  3', 'Materia Prueba  3', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
+(4, 1, 4, 'Materia Prueba  4', 'Materia Prueba  4', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
+(5, 1, 5, 'Materia Prueba  5', 'Materia Prueba  5', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
+(6, 1, 6, 'Materia Prueba  6', 'Materia Prueba  6', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0);
+
+
+
 
 -- --------------------------------------------------------
 
