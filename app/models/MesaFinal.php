@@ -50,7 +50,7 @@ class MesaFinal
             /**Consulta per Buscar los Valores */
             $searchQuery = " AND (m.nombre LIKE :search)";
         }
-        $this->db->query("SELECT m.nombre AS materia, a.nombre AS aula, mf.fecha
+        $this->db->query("SELECT mf.id, m.nombre AS materia, a.nombre AS aula, mf.fecha AS fecha
                             FROM
                                 mesas_finales mf
                                 LEFT JOIN materias m ON mf.materia_id = m.id

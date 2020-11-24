@@ -28,7 +28,7 @@
          </li> -->
         <?php if ($_SESSION['usuario_rol'] == 3) : ?>
             <li>
-                <a href="<?php echo URL_ROOT . '/mesafinal' ?>">
+                <a href="<?php echo URL_ROOT . '/inscripcionmesa' ?>">
                     <i class="fa fa-2x"><img src="<?php echo URL_ROOT; ?>/img/calendar.svg" width="30px" height="30px" alt="" srcset=""></i>
                     <span class="nav-text">
                         Inscribirse a Finales
