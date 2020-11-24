@@ -69,12 +69,11 @@ CREATE TABLE `carreras` (
 --
 
 INSERT INTO `carreras` (`id`, `nombre`, `descripcion`, `tiempo`, `horas`, `created_at`, `updated_at`, `deleted`) VALUES
-(1, 'Tecnicatura en programacion', 'Programacion', '5 Cuatrimestres', '1600', '2020-11-22 23:48:07', '2020-11-22 23:48:07', 0),
-(2, 'Analista de sistemas', 'Analista', '5 Cuatrimestres', '1600', '2020-11-22 23:48:24', '2020-11-22 23:48:24', 0),
-(3, 'Ingenieria en sistemas', 'Ingenieria', '5 Cuatrimestres', '1600', '2020-11-22 23:48:48', '2020-11-22 23:48:48', 0),
-(4, 'Data science', 'Ciencia de datos', '5 Cuatrimestres', '1600', '2020-11-22 23:48:07', '2020-11-22 23:48:07', 0),
-(5, 'Diseño web', 'Diseñador Front End', '5 Cuatrimestres', '1600', '2020-11-22 23:48:07', '2020-11-22 23:48:07', 0),
-(6, 'I.A', 'Inteligencia Artificial', '5 Cuatrimestres', '1600', '2020-11-22 23:48:07', '2020-11-22 23:48:07', 0);
+(1, 'Tecnicatura en programacion', 'Tecn Programacion', '5 Cuatrimestres', '1600', '2020-11-22 23:48:07', '2020-11-22 23:48:07', 0),
+(2, 'Licenciatura en gestion de la informacion', 'Lic gest info', '5 Cuatrimestres', '1600', '2020-11-22 23:48:24', '2020-11-22 23:48:24', 0),
+(3, 'Ingenieria Ferroviaria', 'Ing Ferroviaria', '5 Cuatrimestres', '1600', '2020-11-22 23:48:48', '2020-11-22 23:48:48', 0),
+(4, 'Ingenieria Mecanica', 'Ing Mecanica', '5 Cuatrimestres', '1600', '2020-11-22 23:48:07', '2020-11-22 23:48:07', 0),
+(5, 'Tecnicatura en implementación y gestión informática', 'TIG', '5 Cuatrimestres', '1600', '2020-11-22 23:48:07', '2020-11-22 23:48:07', 0);
 
 
 
@@ -116,12 +115,24 @@ CREATE TABLE `materias` (
 
 INSERT INTO `materias` (`id`, `carrera_id`, `aula_id`, `nombre`, `descripcion`, `created_at`, `updated_at`, `deleted`) VALUES
 (1, 1, 1, 'Logica y algoritmos', 'Materia Prueba  1', '2020-11-22 23:51:47', '2020-11-22 23:51:47', 0),
-(2, 2, 2, 'Historia de las computadoras', 'Materia Prueba  2', '2020-11-22 23:52:21', '2020-11-22 23:52:21', 0),
-(3, 1, 3, 'Materia Prueba  3', 'Materia Prueba  3', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
-(4, 1, 4, 'Materia Prueba  4', 'Materia Prueba  4', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
-(5, 1, 5, 'Materia Prueba  5', 'Materia Prueba  5', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
-(6, 1, 6, 'Materia Prueba  6', 'Materia Prueba  6', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0);
+(2, 1, 1, 'Programacion C', 'Materia Prueba  1', '2020-11-22 23:51:47', '2020-11-22 23:51:47', 0),
+(3, 1, 1, 'Introduccion a la informatica', 'Materia Prueba  1', '2020-11-22 23:51:47', '2020-11-22 23:51:47', 0),
 
+(4, 2, 2, 'Principios de administracion', 'Materia Prueba  2', '2020-11-22 23:52:21', '2020-11-22 23:52:21', 0),
+(5, 2, 2, 'Costos y contabilidad', 'Materia Prueba  2', '2020-11-22 23:52:21', '2020-11-22 23:52:21', 0),
+(6, 2, 2, 'Economia', 'Materia Prueba  2', '2020-11-22 23:52:21', '2020-11-22 23:52:21', 0),
+
+(7, 3, 3, 'Introduccion a la ingenieria', 'Materia Prueba  3', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
+(8, 3, 3, 'Fundamentos de programacion informatica', 'Materia Prueba  3', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
+(9, 3, 3, 'Ingles', 'Materia Prueba  3', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
+
+(10, 4, 4, 'Medios de representacion grafica I', 'Materia Prueba  4', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
+(11, 4, 4, 'Ingles', 'Materia Prueba  4', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
+(12, 4, 4, 'Taller de informatica general y aplicada', 'Materia Prueba  4', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
+
+(13, 5, 5, 'Introduccion al equipamiento informatico', 'Materia Prueba  5', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
+(14, 5, 5, 'Sistemas operativos I', 'Materia Prueba  5', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
+(15, 5, 5, 'Economia aplicada', 'Materia Prueba  5', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0);
 
 
 
