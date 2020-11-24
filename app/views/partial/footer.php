@@ -14,7 +14,7 @@ if (isset($data['dataTables'])) {
 <script>
 $('#carrera').on("change", function (e) {
     let carrera = $('#carrera').val();
-    let usuario = $('#id').val()
+    let usuario = $('#usuario_id').val()
     $('#materias').select2({
         theme: 'bootstrap4',
         ajax: {

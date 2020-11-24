@@ -26,7 +26,7 @@ class Materia
         }
         $this->db->query("SELECT *
                             FROM materias m
-                            WHERE deleted IS FALSE AND carrera_id = :carrera_id $searchQuery AND id NOT IN (
+                            WHERE deleted IS FALSE AND carrera_id = :carrera_id $searchQuery AND m.id NOT IN (
                             SELECT materia_id FROM materias_usuarios WHERE deleted IS FALSE AND usuario_id = :usuario_id
                             )
                         ");

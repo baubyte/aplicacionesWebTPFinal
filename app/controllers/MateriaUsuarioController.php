@@ -37,7 +37,10 @@ class MateriausuarioController extends Controller
         /**Obtenemos los Datos del Usuario */
         $usuario = $this->usuarioModel->getUsuarioByDni($dni);
         /**Obtenemos las Carreras */
-        $carreras = $this->carreraModel->getCarreras();
+        $carreras = $this->carreraModel->getCarrerasUsuario($usuario->id);
+        if (!$carreras) {
+            $carreras = $this->carreraModel->getCarreras();
+        }
         $data =         $data = [
             'titulo' => 'Asignar Materias',
             'id' => $usuario->id,
