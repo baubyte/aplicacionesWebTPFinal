@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 19-11-2020 a las 03:30:54
+-- Tiempo de generación: 24-11-2020 a las 02:40:08
 -- Versión del servidor: 5.7.24
 -- Versión de PHP: 7.2.19
 
@@ -38,6 +38,15 @@ CREATE TABLE `aulas` (
   `deleted` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `aulas`
+--
+
+INSERT INTO `aulas` (`id`, `nombre`, `descripcion`, `created_at`, `updated_at`, `deleted`) VALUES
+(1, 'Aula 101', 'Aula 101', '2020-11-22 23:50:35', '2020-11-22 23:50:35', 0),
+(2, 'Aula 102', 'Aula 102', '2020-11-22 23:50:53', '2020-11-22 23:50:53', 0),
+(3, 'Aula 103', 'Aula 103', '2020-11-22 23:51:06', '2020-11-22 23:51:06', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -54,6 +63,15 @@ CREATE TABLE `carreras` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `carreras`
+--
+
+INSERT INTO `carreras` (`id`, `nombre`, `descripcion`, `tiempo`, `horas`, `created_at`, `updated_at`, `deleted`) VALUES
+(1, 'Carrera Prueba 1', 'Carrera Prueba 1', '5 Cuatrimestres', '1600', '2020-11-22 23:48:07', '2020-11-22 23:48:07', 0),
+(2, 'Carrera Prueba 2', 'Carrera Prueba 2', '5 Cuatrimestres', '1600', '2020-11-22 23:48:24', '2020-11-22 23:48:24', 0),
+(3, 'Carrera Prueba 3', 'Carrera Prueba 3', '5 Cuatrimestres', '1600', '2020-11-22 23:48:48', '2020-11-22 23:48:48', 0);
 
 -- --------------------------------------------------------
 
@@ -87,6 +105,15 @@ CREATE TABLE `materias` (
   `deleted` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `materias`
+--
+
+INSERT INTO `materias` (`id`, `carrera_id`, `aula_id`, `nombre`, `descripcion`, `created_at`, `updated_at`, `deleted`) VALUES
+(1, 1, 1, 'Materia Prueba  1', 'Materia Prueba  1', '2020-11-22 23:51:47', '2020-11-22 23:51:47', 0),
+(2, 2, 2, 'Materia Prueba  2', 'Materia Prueba  2', '2020-11-22 23:52:21', '2020-11-22 23:52:21', 0),
+(3, 1, 3, 'Materia Prueba  3', 'Materia Prueba  3', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -101,6 +128,17 @@ CREATE TABLE `materias_usuarios` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `materias_usuarios`
+--
+
+INSERT INTO `materias_usuarios` (`id`, `usuario_id`, `materia_id`, `created_at`, `updated_at`, `deleted`) VALUES
+(3, 40, 1, '2020-11-24 00:33:11', '2020-11-24 00:33:11', 0),
+(4, 40, 3, '2020-11-24 00:33:11', '2020-11-24 00:33:11', 0),
+(5, 51, 1, '2020-11-24 02:11:30', '2020-11-24 02:28:14', 1),
+(6, 51, 3, '2020-11-24 02:11:30', '2020-11-24 02:29:09', 1),
+(8, 51, 3, '2020-11-24 02:30:55', '2020-11-24 02:30:55', 0);
 
 -- --------------------------------------------------------
 
@@ -182,8 +220,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `rol_id`, `email`, `password`, `nombre`, `apellido`, `dni`, `token`, `created_at`, `updated_at`, `deleted`) VALUES
-(1, 1, 'admin@admin.com', '$2y$10$zqiMDiDosRwYW7WPz0zwheSpdN8OTxfj0DR29l4qNgcXkMzB.E9AC', 'Administrador', 'Administrador', '12345679', NULL, '2020-11-15 00:19:07', '2020-11-19 03:24:01', 0),
-(33, 2, 'pared.martin@gmail.com', '$2y$10$CYPKOeM0V/DuoVOhnPfJNODIW6Ed8O5sg0NJ/HyHBPNsV9SwzHDne', 'Martin', 'Pared', '12345678', NULL, '2020-11-15 04:34:54', '2020-11-17 00:40:01', 1),
+(1, 1, 'admin@admin.com', '$2y$10$CYPKOeM0V/DuoVOhnPfJNODIW6Ed8O5sg0NJ/HyHBPNsV9SwzHDne', 'Administrador', 'Administrador', '12345679', NULL, '2020-11-15 00:19:07', '2020-11-23 02:30:11', 0),
+(33, 3, 'pared.martin@gmail.com', '$2y$10$CYPKOeM0V/DuoVOhnPfJNODIW6Ed8O5sg0NJ/HyHBPNsV9SwzHDne', 'Martin', 'Pared', '12345678', NULL, '2020-11-15 04:34:54', '2020-11-22 00:56:14', 1),
 (34, 1, 'garcia81@email.com', NULL, 'María', 'García', '53052515', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
 (35, 2, 'sanz67@mail.com', NULL, 'Manuel', 'Sanz', '86391305', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
 (36, 1, 'jsantos@email.com', NULL, 'Javier', 'Santos', '19471859', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
@@ -213,7 +251,8 @@ INSERT INTO `usuarios` (`id`, `rol_id`, `email`, `password`, `nombre`, `apellido
 (60, 3, 'msanchez@email.com', NULL, 'María', 'Sánchez', '20590436', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
 (61, 3, 'martin21@correo.com', NULL, 'Lucia', 'Martin', '55336664', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
 (62, 2, 'manuelgallego@email.es', NULL, 'Manuel', 'Gallego', '71205774', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
-(63, 2, 'laura.santana@mail.com', NULL, 'Laura', 'Santana', '71265515', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0);
+(63, 2, 'laura.santana@mail.com', NULL, 'Laura', 'Santana', '71265515', NULL, '2020-11-15 04:35:12', '2020-11-15 04:35:12', 0),
+(68, 3, 'alumno@alumno.com', '$2y$10$VShu8au30X9uTSvyeOJOfOa8g5DyzGBlk8rPWd/blAQhzIIdI0WQy', 'Alumno', 'Alumno', '30000000', NULL, '2020-11-20 01:24:57', '2020-11-20 01:24:57', 0);
 
 --
 -- Índices para tablas volcadas
@@ -292,13 +331,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `aulas`
 --
 ALTER TABLE `aulas`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `carreras`
 --
 ALTER TABLE `carreras`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `inscripciones_mesas`
@@ -310,13 +349,13 @@ ALTER TABLE `inscripciones_mesas`
 -- AUTO_INCREMENT de la tabla `materias`
 --
 ALTER TABLE `materias`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `materias_usuarios`
 --
 ALTER TABLE `materias_usuarios`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `mesas_finales`
@@ -340,7 +379,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- Restricciones para tablas volcadas
