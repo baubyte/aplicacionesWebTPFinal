@@ -85,6 +85,20 @@ function isAdmin()
     }
 }
 /**
+ * Comprueba si el Usuario es Alumno
+ *
+ * @return boolean
+ */
+function isAlumno()
+{
+    if ($_SESSION['usuario_rol'] == 3) {
+        return true;
+    } else {
+        redirect('home');
+        exit();
+    }
+}
+/**
  * Genera un INPUT con Token para evitar los ataques CSRF
  *
  * @return $token 
