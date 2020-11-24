@@ -19,7 +19,7 @@
              </a>
          </li>
          <li>
-             <a href="<?php echo URL_ROOT.'/views/MesasFinales/ABMmesas.php'?>">
+             <a href="<?php echo URL_ROOT.'/MesaFinal/index'?>">
                  <i class="fa fa-2x"><img src="<?php echo URL_ROOT; ?>/img/calendar.svg" width="30px" height="30px" alt="" srcset=""></i>
                  <span class="nav-text">
                      Calendario
@@ -27,7 +27,7 @@
              </a>
          </li>
          <li>
-             <a href="#">
+             <a href="<?php echo URL_ROOT. '/mesafinal/fff' ?>">
                  <i class="fa fa-2x"><img src="<?php echo URL_ROOT; ?>/img/copy.svg" width="30px" height="30px" alt="" srcset=""></i>
                  <span class="nav-text">
                      Archivos privados

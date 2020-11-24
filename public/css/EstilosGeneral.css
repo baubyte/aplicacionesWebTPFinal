@@ -459,3 +459,7 @@ article h2{
     font-weight: 400;
 }
 /* Mis Cursos */
+article.MainMenu div.container h3.Apertura{
+  text-align: center;
+  color: red;
+}
