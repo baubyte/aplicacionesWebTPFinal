@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 24-11-2020 a las 02:40:08
+-- Tiempo de generación: 24-11-2020 a las 18:28:52
 -- Versión del servidor: 5.7.24
 -- Versión de PHP: 7.2.19
 
@@ -75,8 +75,6 @@ INSERT INTO `carreras` (`id`, `nombre`, `descripcion`, `tiempo`, `horas`, `creat
 (4, 'Ingenieria Mecanica', 'Ing Mecanica', '5 Cuatrimestres', '1600', '2020-11-22 23:48:07', '2020-11-22 23:48:07', 0),
 (5, 'Tecnicatura en implementación y gestión informática', 'TIG', '5 Cuatrimestres', '1600', '2020-11-22 23:48:07', '2020-11-22 23:48:07', 0);
 
-
-
 -- --------------------------------------------------------
 
 --
@@ -117,24 +115,18 @@ INSERT INTO `materias` (`id`, `carrera_id`, `aula_id`, `nombre`, `descripcion`, 
 (1, 1, 1, 'Logica y algoritmos', 'Materia Prueba  1', '2020-11-22 23:51:47', '2020-11-22 23:51:47', 0),
 (2, 1, 1, 'Programacion C', 'Materia Prueba  1', '2020-11-22 23:51:47', '2020-11-22 23:51:47', 0),
 (3, 1, 1, 'Introduccion a la informatica', 'Materia Prueba  1', '2020-11-22 23:51:47', '2020-11-22 23:51:47', 0),
-
 (4, 2, 2, 'Principios de administracion', 'Materia Prueba  2', '2020-11-22 23:52:21', '2020-11-22 23:52:21', 0),
 (5, 2, 2, 'Costos y contabilidad', 'Materia Prueba  2', '2020-11-22 23:52:21', '2020-11-22 23:52:21', 0),
 (6, 2, 2, 'Economia', 'Materia Prueba  2', '2020-11-22 23:52:21', '2020-11-22 23:52:21', 0),
-
 (7, 3, 3, 'Introduccion a la ingenieria', 'Materia Prueba  3', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
 (8, 3, 3, 'Fundamentos de programacion informatica', 'Materia Prueba  3', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
 (9, 3, 3, 'Ingles', 'Materia Prueba  3', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
-
 (10, 4, 4, 'Medios de representacion grafica I', 'Materia Prueba  4', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
 (11, 4, 4, 'Ingles', 'Materia Prueba  4', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
 (12, 4, 4, 'Taller de informatica general y aplicada', 'Materia Prueba  4', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
-
 (13, 5, 5, 'Introduccion al equipamiento informatico', 'Materia Prueba  5', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
 (14, 5, 5, 'Sistemas operativos I', 'Materia Prueba  5', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0),
 (15, 5, 5, 'Economia aplicada', 'Materia Prueba  5', '2020-11-22 23:52:54', '2020-11-22 23:52:54', 0);
-
-
 
 -- --------------------------------------------------------
 
@@ -151,17 +143,6 @@ CREATE TABLE `materias_usuarios` (
   `deleted` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `materias_usuarios`
---
-
-INSERT INTO `materias_usuarios` (`id`, `usuario_id`, `materia_id`, `created_at`, `updated_at`, `deleted`) VALUES
-(3, 40, 1, '2020-11-24 00:33:11', '2020-11-24 00:33:11', 0),
-(4, 40, 3, '2020-11-24 00:33:11', '2020-11-24 00:33:11', 0),
-(5, 51, 1, '2020-11-24 02:11:30', '2020-11-24 02:28:14', 1),
-(6, 51, 3, '2020-11-24 02:11:30', '2020-11-24 02:29:09', 1),
-(8, 51, 3, '2020-11-24 02:30:55', '2020-11-24 02:30:55', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -176,6 +157,18 @@ CREATE TABLE `mesas_finales` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `mesas_finales`
+--
+
+INSERT INTO `mesas_finales` (`id`, `materia_id`, `fecha`, `created_at`, `updated_at`, `deleted`) VALUES
+(1, 1, '2020-12-02', '2020-11-24 16:04:28', '2020-11-24 16:04:28', 0),
+(2, 1, '2020-12-08', '2020-11-24 16:04:28', '2020-11-24 16:04:28', 0),
+(3, 3, '2020-12-03', '2020-11-24 16:05:10', '2020-11-24 16:05:10', 0),
+(4, 3, '2020-11-12', '2020-11-24 16:05:10', '2020-11-24 16:05:10', 0),
+(5, 2, '2020-12-05', '2020-11-24 16:06:21', '2020-11-24 16:06:21', 0),
+(6, 2, '2020-12-12', '2020-11-24 16:06:21', '2020-11-24 16:06:21', 0);
 
 -- --------------------------------------------------------
 
@@ -359,7 +352,7 @@ ALTER TABLE `aulas`
 -- AUTO_INCREMENT de la tabla `carreras`
 --
 ALTER TABLE `carreras`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `inscripciones_mesas`
@@ -371,19 +364,19 @@ ALTER TABLE `inscripciones_mesas`
 -- AUTO_INCREMENT de la tabla `materias`
 --
 ALTER TABLE `materias`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `materias_usuarios`
 --
 ALTER TABLE `materias_usuarios`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `mesas_finales`
 --
 ALTER TABLE `mesas_finales`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `notas`
@@ -413,13 +406,6 @@ ALTER TABLE `usuarios`
 ALTER TABLE `inscripciones_mesas`
   ADD CONSTRAINT `inscripciones_mesas_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`),
   ADD CONSTRAINT `inscripciones_mesas_ibfk_2` FOREIGN KEY (`mesa_final_id`) REFERENCES `mesas_finales` (`id`);
-
---
--- Filtros para la tabla `materias`
---
-ALTER TABLE `materias`
-  ADD CONSTRAINT `materias_ibfk_1` FOREIGN KEY (`carrera_id`) REFERENCES `carreras` (`id`),
-  ADD CONSTRAINT `materias_ibfk_2` FOREIGN KEY (`aula_id`) REFERENCES `aulas` (`id`);
 
 --
 -- Filtros para la tabla `materias_usuarios`
