@@ -69,7 +69,7 @@ class MateriaUsuario
      * @param [string] $filter Valor a fieltrar es opcional
      * @return cantidad de registros
      */
-    public function countMateriasUsuario($filter = null,$usuarioId)
+    public function countMateriasUsuario($filter = null, $usuarioId)
     {
         $searchQuery = "";
         /**Comprobamos si existe un filtro en la búsqueda */
@@ -87,5 +87,22 @@ class MateriaUsuario
         }
         $this->db->resultSet();
         return $this->db->rowCount();
+    }
+    /**
+     * Metodo por el cual se elimina la materia de un usuario,
+     * la eliminación se realiza de manera logica, cambiando
+     *
+     * @param [int] $id ID del usuario a eliminar.
+     * @return boolean TRUE si no existen errores caso contrario FALSE.
+     */
+    public function destroy($id)
+    {
+        $this->db->query('UPDATE materias_usuarios SET deleted = TRUE WHERE id = :id');
+        $this->db->bind(':id', $id);
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

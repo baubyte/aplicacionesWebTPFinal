@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No se permite acceso directo');
-class MesaFinalController extends Controller
+class MesafinalController extends Controller
 {
 
    public function index()
@@ -9,6 +9,6 @@ class MesaFinalController extends Controller
       $data = [
          'titulo' => 'Inicio',
       ];
-      $this->view('MesaFinal/ABMmesas', $data);
+      $this->view('mesafinal/ABMmesas', $data);
    }
 }

@@ -43,7 +43,7 @@
                     <span class="invalid-feedback"><?php echo (!empty($data['materias_err'])) ?  $data['materias_err'] : ''; ?></span>
                 </div>
             </div>
-            <input type="hidden" id="id" name="id" value="<?php echo $data['id'] ?>">
+            <input type="hidden" id="usuario_id" name="usuario_id" value="<?php echo $data['id'] ?>">
             <?php generateInputCsrf(); ?>
             <div class="form-row text-md-center">
                 <div class="col-md-6 mb-3">
@@ -76,6 +76,31 @@
             <div class="col-1"></div>
         </div>
         <!--/Listado de Maetrias Usuarios -->
+        <!-- Modal Eliminar -->
+        <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="modalEliminarTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modalEliminarLongTitle">Eliminar Usuario</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5 class="text-bold">¿Estas seguro de Eliminar está Materia?</h5>
+                        <form action="<?php echo URL_ROOT; ?>/materiausuario/destroy" method="post">
+                            <input type="hidden" name="id" id="id" value="">
+                            <?php generateInputCsrf(); ?>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--/Modal Eliminar -->
     </div>
 </article>
 <!-- Asignar Materias Usuarios -->

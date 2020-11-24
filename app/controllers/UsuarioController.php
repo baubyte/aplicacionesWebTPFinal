@@ -155,6 +155,12 @@ class UsuarioController extends Controller
             return $this->view('usuario/edit', $data);
         }
     }
+    /**
+     * Método para dar de baja Un usuario
+     * El borrado que realiza es un borrado lógico.
+     *
+     * @return void
+     */
     public function destroy()
     {
         /**Comprobamos si es Administrador */

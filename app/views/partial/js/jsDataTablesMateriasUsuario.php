@@ -1,5 +1,5 @@
 <script>
-    let usuario_id = $('#id').val();
+    let usuario_id = $('#usuario_id').val();
     let tablaMateriasUsuario = $('#tablaMateriasUsuario').DataTable({
         'language': {
             'url': '<?php echo URL_ROOT; ?>/dataTables/Spanish.json'

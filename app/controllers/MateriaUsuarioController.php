@@ -141,12 +141,12 @@ class MateriausuarioController extends Controller
             'columnName' => $_GET['columns'][$columnIndex]['data'], // Nombre de la Columna
             'columnSortOrder' => $_GET['order'][0]['dir'], // Orden ASC o DESC
             'searchValue' => filter_var($_GET['search']['value'], FILTER_SANITIZE_STRING), // Valor Buscado
-            'usuario_id' => filter_input(INPUT_GET,'usuario_id',FILTER_SANITIZE_NUMBER_INT)
+            'usuario_id' => filter_input(INPUT_GET, 'usuario_id', FILTER_SANITIZE_NUMBER_INT)
         ];
         /** Número total de registros sin filtrar */
-        $totalRegistros = $this->materiaUsuarioModel->countMateriasUsuario(null,$data['usuario_id']);
+        $totalRegistros = $this->materiaUsuarioModel->countMateriasUsuario(null, $data['usuario_id']);
         /**Número total de registros con filtro */
-        $totalRegistrosFiltrado = $this->materiaUsuarioModel->countMateriasUsuario($data['searchValue'],$data['usuario_id']);
+        $totalRegistrosFiltrado = $this->materiaUsuarioModel->countMateriasUsuario($data['searchValue'], $data['usuario_id']);
         $materiasUsuario = $this->materiaUsuarioModel->getMateriasUsuarioDataTables($data);
         /**Armamos el dataResponse */
         foreach ($materiasUsuario as $key => $materiaUsuario) {
@@ -167,6 +167,27 @@ class MateriausuarioController extends Controller
         /**Mostramos el resultado en JSON */
         echo json_encode($response);
     }
+    /**
+     * Método para dar de baja una materia de un usuario
+     * El borrado que realiza es un borrado lógico.
+     *
+     * @return void
+     */
+    public function destroy()
+    {
+        /**Comprobamos si es Administrador */
+        isAdmin();
+        /**Obtenemos el ID */
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+            /**Verificamos si el Usuario se elimino */
+            if ($this->materiaUsuarioModel->destroy($id)) {
+                flash('materiausuario_asignar_mensaje', 'La Materia fue Eliminada Correctamente.');
+                back();
+            } else {
+                flash('materiausuario_asignar_mensaje', 'Ocurrió un Error al Intentar Eliminar la Materia.', 'danger');
+                back();
+            }
+    }
     /**Valida todos los Datos de la Materias Asignada y los
      * Sanitiza.
      *
@@ -176,7 +197,7 @@ class MateriausuarioController extends Controller
     {
         /**Recepción de Campos */
         $data = [
-            'id' => filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT),
+            'id' => filter_input(INPUT_POST, 'usuario_id', FILTER_SANITIZE_NUMBER_INT),
             'nombre' => ucwords(strtolower(trim(filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING)))),
             'apellido' => ucwords(strtolower(trim(filter_input(INPUT_POST, 'apellido', FILTER_SANITIZE_STRING)))),
             'dni' => filter_input(INPUT_POST, 'dni', FILTER_SANITIZE_NUMBER_INT),
