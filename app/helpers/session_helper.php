@@ -63,7 +63,7 @@ function flash($name = null, $message = null, $class = 'success')
  */
 function isLoggedIn()
 {
-    if ($_SESSION['usuario_activo']) {
+    if (isset($_SESSION['usuario_activo']) && $_SESSION['usuario_activo']) {
         return true;
     } else {
         redirect('usuario/login');
@@ -77,7 +77,7 @@ function isLoggedIn()
  */
 function isAdmin()
 {
-    if ($_SESSION['usuario_rol'] == 1) {
+    if (isset($_SESSION['usuario_rol']) &&$_SESSION['usuario_rol'] == 1) {
         return true;
     } else {
         redirect('home');
@@ -91,7 +91,7 @@ function isAdmin()
  */
 function isAlumno()
 {
-    if ($_SESSION['usuario_rol'] == 3) {
+    if (isset($_SESSION['usuario_rol']) && $_SESSION['usuario_rol'] == 3) {
         return true;
     } else {
         redirect('home');
